@@ -1,0 +1,28 @@
+Copyright (C) 2011-2014 Collective, Inc.
+
+#-------------------------------------------------------------------------------
+# Attribution notice: the idea to store the timing in the baseenv() came from the post 
+# http://stackoverflow.com/questions/1716012/stopwatch-function-in-r
+# by http://stackoverflow.com/users/134830/richie-cotton
+# stackoverflow license: http://creativecommons.org/licenses/by-sa/2.5/
+#
+# tic <- function(gcFirst = TRUE, type=c("elapsed", "user.self", "sys.self"))
+# {
+#    type <- match.arg(type)
+#    assign(".type", type, envir=baseenv())
+#    if(gcFirst) gc(FALSE)
+#    tic <- proc.time()[type]         
+#    assign(".tic", tic, envir=baseenv())
+#    invisible(tic)
+# }
+# 
+# toc <- function()
+# {
+#    type <- get(".type", envir=baseenv())
+#    toc <- proc.time()[type]
+#    tic <- get(".tic", envir=baseenv())
+#    print(toc - tic)
+#    invisible(toc)
+# }
+#-------------------------------------------------------------------------------
+
