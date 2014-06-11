@@ -39,15 +39,16 @@ test_that("tic measures elapsed time in seconds",
 
 test_that("nested tic/tocs work",
 {
+   quiet <- TRUE
    tic("outer")
       Sys.sleep(1) 
       tic("middle") 
          Sys.sleep(2) 
          tic("inner")
             Sys.sleep(3) 
-         tm3 <- toc(quiet = TRUE)
-      tm2 <- toc(quiet = TRUE)
-   tm1 <- toc(quiet = TRUE)
+         tm3 <- toc(quiet = quiet)
+      tm2 <- toc(quiet = quiet)
+   tm1 <- toc(quiet = quiet)
    
    expect_equal(as.logical(abs(tm3$toc - tm3$tic - 3) < 0.1), TRUE)    
    expect_equal(as.logical(abs(tm2$toc - tm2$tic - 5) < 0.1), TRUE)    
@@ -79,6 +80,7 @@ test_that("tic.clear works",
 
 test_that("tic.log works", 
 {
+   quiet <- TRUE
    tic.clearlog()
    tic("outer")
       Sys.sleep(1) 
@@ -86,9 +88,9 @@ test_that("tic.log works",
          Sys.sleep(2) 
          tic("inner")
             Sys.sleep(3) 
-         tm3 <- toc(log = TRUE, quiet = TRUE)
-      tm2 <- toc(log = TRUE, quiet = TRUE)
-   tm1 <- toc(log = TRUE, quiet = TRUE)
+         tm3 <- toc(log = TRUE, quiet = quiet)
+      tm2 <- toc(log = TRUE, quiet = quiet)
+   tm1 <- toc(log = TRUE, quiet = quiet)
    
    log.txt <- tic.log(format = TRUE)
    log.lst <- tic.log(format = FALSE)
@@ -103,12 +105,13 @@ test_that("tic.log works",
 
 test_that("tic.log works in a loop", 
 {
+   quiet <- TRUE
    tic.clearlog()
    for (x in 1:10)
    {
       tic(x)
       Sys.sleep(1)
-      toc(log = TRUE, quiet = TRUE)
+      toc(log = TRUE, quiet = quiet)
    }
    log.lst <- tic.log(format = FALSE)
    tic.clearlog()
@@ -118,3 +121,31 @@ test_that("tic.log works in a loop",
 })
 
 #-------------------------------------------------------------------------------
+
+my.msg.out <- function(tic, toc, msg, info)
+{
+   if (is.null(msg) || is.na(msg) || length(msg) == 0) outmsg <- paste(round(toc - tic, 3), " seconds elapsed", sep="")
+   else outmsg <- paste(info, ": ", msg, ": ", round(toc - tic, 3), " seconds elapsed", sep="")      
+}
+
+test_that("func.out custom message formatting works",
+{
+   quiet <- TRUE
+   tic.clearlog()
+   tic("outer")
+      Sys.sleep(1) 
+      tic("middle") 
+         Sys.sleep(2) 
+         tic("inner")
+            Sys.sleep(3) 
+         tm3 <- toc(log = TRUE, quiet = quiet, func.out = my.msg.out, info = "INFO")
+      tm2 <- toc(log = TRUE, quiet = quiet, func.out = my.msg.out, info = "INFO")
+   tm1 <- toc(log = TRUE, quiet = quiet, func.out = my.msg.out, info = "INFO")
+   
+   log.txt <- tic.log(format = TRUE)
+   tic.clearlog()
+   
+})
+
+#-------------------------------------------------------------------------------
+

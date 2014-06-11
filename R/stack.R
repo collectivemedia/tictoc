@@ -78,7 +78,7 @@ as.Stack.default <- function(s)
 }
 
 #' \code{as.List} - Creates a new List from (typically, list) \code{s}.
-#' @rdname List
+#' @rdname Stack
 #' @export
 #' @method as.List default
 as.List <- function(s) UseMethod("as.List")
@@ -89,7 +89,7 @@ as.List.default <- function(s)
    lst
 }
 
-
+#' @aliases push pop clear shift first last size
 push.default  <- function(x, value) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))
 pop.default  <- function(x) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))
 clear.default  <- function(x) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))

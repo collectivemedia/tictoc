@@ -9,7 +9,7 @@
 \usage{
 tic(msg = NULL)
 
-toc(log = FALSE, quiet = FALSE)
+toc(log = FALSE, quiet = FALSE, func.out = toc.outmsg, ...)
 
 toc.outmsg(tic, toc, msg)
 
@@ -23,11 +23,22 @@ tic.log(format = TRUE)
   \item{msg}{- a text string associated with the timer. It
   gets printed on a call to \code{toc()}}
 
-  \item{log}{- when \code{TRUE}, pushes the timings and the
+  \item{log}{- When \code{TRUE}, pushes the timings and the
   message in a list of recorded timings.}
 
-  \item{quiet}{- when \code{TRUE}, doesn't print any
+  \item{quiet}{When \code{TRUE}, doesn't print any
   messages}
+
+  \item{func.out}{Function producing the formatted message
+  with a signature \code{f(tic, toc, msg, ...)}.  Here,
+  parameters \code{tic} and \code{toc} are the elapsed
+  process times in seconds, so the time elapsed between the
+  \code{tic()} and \code{toc()} calls is computed by
+  \code{toc - tic}. \code{msg} is the string passed to the
+  \code{tic()} call.}
+
+  \item{...}{The other parameters that are passed to
+  \code{func.out}.}
 
   \item{tic}{Time from the call to tic()
   (\code{proc.time()["elapsed"]})}

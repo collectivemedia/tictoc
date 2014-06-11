@@ -1,6 +1,7 @@
 \name{Stack}
 \alias{List}
 \alias{Stack}
+\alias{as.List}
 \alias{as.Stack}
 \alias{clear}
 \alias{first}
@@ -25,6 +26,8 @@
 \method{size}{default}(x)
 
 \method{as.Stack}{default}(s)
+
+\method{as.List}{default}(s)
 
 Stack()
 
@@ -54,6 +57,9 @@ List()
 
 \code{as.Stack} - Creates a new Stack from (typically,
 vector) \code{s}.
+
+\code{as.List} - Creates a new List from (typically, list)
+\code{s}.
 
 \code{Stack()} - Creates and keeps a stack of items of the
 same type, implemented as an R vector. The type is

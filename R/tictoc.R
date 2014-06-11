@@ -70,13 +70,19 @@ tic <- function(msg = NULL)
 
 #' \code{toc} - Notes the current timer and computes elapsed time since the matching call to \code{tic()}.
 #' When \code{quiet} is \code{FALSE}, prints the associated message and the elapsed time.
-#' @param log - when \code{TRUE}, pushes the timings and the message in a list of recorded timings.
-#' @param quiet - when \code{TRUE}, doesn't print any messages
+#' @param log - When \code{TRUE}, pushes the timings and the message in a list of recorded timings.
+#' @param quiet When \code{TRUE}, doesn't print any messages
+#' @param func.out Function producing the formatted message with a signature \code{f(tic, toc, msg, ...)}.
+#'        Here, parameters \code{tic} and \code{toc} are the elapsed process 
+#'        times in seconds, so the time elapsed between the \code{tic()} and 
+#'        \code{toc()} calls is computed by \code{toc - tic}. \code{msg} is the string
+#'        passed to the \code{tic()} call. 
+#' @param ... The other parameters that are passed to \code{func.out}. 
 #' @return \code{toc} returns an (invisible) list containing the timestamps \code{tic}, \code{toc}, and the message \code{msg}.
 #' @seealso \code{\link{Stack}} 
 #' @export
 #' @rdname tic
-toc <- function(log = FALSE, quiet = FALSE)
+toc <- function(log = FALSE, quiet = FALSE, func.out = toc.outmsg, ...)
 {
    toc <- proc.time()["elapsed"]
    stim <- get(".tictoc", envir=baseenv())
@@ -84,7 +90,7 @@ toc <- function(log = FALSE, quiet = FALSE)
    if (size(.tictoc) == 0) return(invisible(NULL))
    tic <- pop(stim)
    msg <- pop(smsg)
-   outmsg <- toc.outmsg(tic, toc, msg)
+   outmsg <- func.out(tic, toc, msg, ...)
    if (!quiet) writeLines(outmsg)
    res <- list(tic=tic, toc=toc, msg=msg)
    if (log) 
