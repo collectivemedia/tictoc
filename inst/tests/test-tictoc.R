@@ -77,3 +77,44 @@ test_that("tic.clear works",
 
 #-------------------------------------------------------------------------------
 
+test_that("tic.log works", 
+{
+   tic.clearlog()
+   tic("outer")
+      Sys.sleep(1) 
+      tic("middle") 
+         Sys.sleep(2) 
+         tic("inner")
+            Sys.sleep(3) 
+         tm3 <- toc(log = TRUE, quiet = TRUE)
+      tm2 <- toc(log = TRUE, quiet = TRUE)
+   tm1 <- toc(log = TRUE, quiet = TRUE)
+   
+   log.txt <- tic.log(format = TRUE)
+   log.lst <- tic.log(format = FALSE)
+   tic.clearlog()
+   
+   timings <- unlist(lapply(log.lst, function(x) x$toc - x$tic))
+   timings.true <- c(3, 5, 6)
+   expect_equal(all(abs(timings - timings.true) < 0.1), TRUE)
+})
+
+#-------------------------------------------------------------------------------
+
+test_that("tic.log works in a loop", 
+{
+   tic.clearlog()
+   for (x in 1:10)
+   {
+      tic(x)
+      Sys.sleep(1)
+      toc(log = TRUE, quiet = TRUE)
+   }
+   log.lst <- tic.log(format = FALSE)
+   tic.clearlog()
+   
+   timings <- unlist(lapply(log.lst, function(x) x$toc - x$tic))
+   expect_equal((abs(mean(timings) - 1) < 0.01), TRUE)
+})
+
+#-------------------------------------------------------------------------------
