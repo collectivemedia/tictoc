@@ -9,7 +9,7 @@ Description: This package provides the timing functions 'tic' and 'toc' that
     running, and examine the values later. It is also possible to instrument
     the timing calls with custom callbacks. In addition, this package provides
     class 'Stack', implemented as a vector, and class 'List', implemented as a
-    list, both of which support operations 'push', 'pop}, 'first', 'last' and
+    list, both of which support operations 'push', 'pop', 'first', 'last' and
     'clear'.
 URL: http://github.com/collectivemedia/tictoc
 Depends:

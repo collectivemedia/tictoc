@@ -21,17 +21,6 @@
 # limitations under the License.
 #-------------------------------------------------------------------------------
 #' Functions for timing, as well as implementations of Stack and List structures.
-#' \tabular{ll}{
-#' Package: \tab tictoc\cr
-#' Type: \tab Package\cr
-#' Version: \tab 3.5\cr
-#' Date: \tab 2014-06-07\cr
-#' License: \tab Apache License, Version 2.0\cr
-#' Author: \tab Sergei Izrailev\cr
-#' Maintainer: \tab Sergei Izrailev <sizrailev@@collective.com>\cr
-#' Copyright: \tab Copyright: Copyright (C) Collective, Inc. | file inst/COPYRIGHTS\cr
-#' LazyLoad: \tab yes\cr
-#' }
 #'
 #' This package provides the timing functions \code{tic} and \code{toc} that can be nested. 
 #' One can record all timings while a complex script is running, and examine the values later.
@@ -44,8 +33,12 @@
 #' @name tictoc
 #' @aliases tictoc
 #' @docType package
-#' @title Functions for timing, as well as implementations of Stack and List structures. 
+#' @title Package tictoc. 
 #' @author Sergei Izrailev
+#' @section Copyright: Copyright (C) Collective, Inc.
+#' @section License: Apache License, Version 2.0, 
+#'    available at http://www.apache.org/licenses/LICENSE-2.0
+#' @section URL: http://github.com/collectivemedia/tictoc
 #' @keywords timing profiling stack list
 #' @import methods
 #' 

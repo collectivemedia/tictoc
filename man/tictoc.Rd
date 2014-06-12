@@ -2,16 +2,10 @@
 \name{tictoc}
 \alias{tictoc}
 \alias{tictoc-package}
-\title{Functions for timing, as well as implementations of Stack and List structures.}
+\title{Package tictoc.}
 \description{
 Functions for timing, as well as implementations of Stack
-and List structures. \tabular{ll}{ Package: \tab tictoc\cr
-Type: \tab Package\cr Version: \tab 3.5\cr Date: \tab
-2014-06-07\cr License: \tab Apache License, Version 2.0\cr
-Author: \tab Sergei Izrailev\cr Maintainer: \tab Sergei
-Izrailev <sizrailev@collective.com>\cr Copyright: \tab
-Copyright: Copyright (C) Collective, Inc. | file
-inst/COPYRIGHTS\cr LazyLoad: \tab yes\cr }
+and List structures.
 }
 \details{
 This package provides the timing functions \code{tic} and
@@ -24,6 +18,18 @@ In addition, this package provides classes
 \code{\link{List}}, implemented as a \code{list}, both of
 which support operations \code{push}, \code{pop},
 \code{first}, \code{last}, \code{clear} and \code{size}.
+}
+\section{Copyright}{
+  Copyright (C) Collective, Inc.
+}
+
+\section{License}{
+  Apache License, Version 2.0, available at
+  http://www.apache.org/licenses/LICENSE-2.0
+}
+
+\section{URL}{
+  http://github.com/collectivemedia/tictoc
 }
 \author{
 Sergei Izrailev
