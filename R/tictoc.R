@@ -51,15 +51,26 @@
 #' @name tic
 #' @aliases toc.outmsg tic.clearlog tic.clear tic.log tic toc 
 #' @param msg - a text string associated with the timer. It gets printed on a call to \code{toc()}
+#' @param func.tic Function producing the formatted message with a signature \code{f(tic, toc, msg, ...)}.
+#'        Here, parameters \code{tic} and \code{toc} are the elapsed process 
+#'        times in seconds, so the time elapsed between the \code{tic()} and 
+#'        \code{toc()} calls is computed by \code{toc - tic}. \code{msg} is the string
+#'        passed to the \code{tic()} call. 
+#' @param ... The other parameters that are passed to \code{func.tic} and \code{func.toc}. 
 #' @return \code{tic} returns the timestamp (invisible).
 #' @title Timing utilities. 
 #' @export
 #' @rdname tic
-tic <- function(msg = NULL)
+tic <- function(msg = NULL, quiet = TRUE, func.tic = NULL, ...)
 { 
    stim <- get(".tictoc", envir=baseenv())
    smsg <- get(".ticmsg", envir=baseenv())
    tic <- proc.time()["elapsed"]
+   if (!is.null(func.tic))
+   {
+      outmsg <- func.tic(tic, msg, ...)
+      if (!quiet) writeLines(outmsg)      
+   }
    push(stim, tic)
    push(smsg, msg)
    invisible(tic)
@@ -72,17 +83,16 @@ tic <- function(msg = NULL)
 #' When \code{quiet} is \code{FALSE}, prints the associated message and the elapsed time.
 #' @param log - When \code{TRUE}, pushes the timings and the message in a list of recorded timings.
 #' @param quiet When \code{TRUE}, doesn't print any messages
-#' @param func.out Function producing the formatted message with a signature \code{f(tic, toc, msg, ...)}.
+#' @param func.toc Function producing the formatted message with a signature \code{f(tic, toc, msg, ...)}.
 #'        Here, parameters \code{tic} and \code{toc} are the elapsed process 
 #'        times in seconds, so the time elapsed between the \code{tic()} and 
 #'        \code{toc()} calls is computed by \code{toc - tic}. \code{msg} is the string
 #'        passed to the \code{tic()} call. 
-#' @param ... The other parameters that are passed to \code{func.out}. 
 #' @return \code{toc} returns an (invisible) list containing the timestamps \code{tic}, \code{toc}, and the message \code{msg}.
 #' @seealso \code{\link{Stack}} 
 #' @export
 #' @rdname tic
-toc <- function(log = FALSE, quiet = FALSE, func.out = toc.outmsg, ...)
+toc <- function(log = FALSE, quiet = FALSE, func.toc = toc.outmsg, ...)
 {
    toc <- proc.time()["elapsed"]
    stim <- get(".tictoc", envir=baseenv())
@@ -90,8 +100,11 @@ toc <- function(log = FALSE, quiet = FALSE, func.out = toc.outmsg, ...)
    if (size(.tictoc) == 0) return(invisible(NULL))
    tic <- pop(stim)
    msg <- pop(smsg)
-   outmsg <- func.out(tic, toc, msg, ...)
-   if (!quiet) writeLines(outmsg)
+   if (!is.null(func.toc))
+   {
+      outmsg <- func.toc(tic, toc, msg, ...)
+      if (!quiet) writeLines(outmsg)      
+   }
    res <- list(tic=tic, toc=toc, msg=msg)
    if (log) 
    {
@@ -106,6 +119,7 @@ toc <- function(log = FALSE, quiet = FALSE, func.out = toc.outmsg, ...)
 #' \code{toc.outmsg} - Formats a message for pretty printing. Redefine this for different formatting.
 #' @param tic Time from the call to tic() (\code{proc.time()["elapsed"]})
 #' @param toc Time from the call to toc() (\code{proc.time()["elapsed"]})
+#' @return \code{toc.outmsg} returns formatted message.
 #' @export
 #' @rdname tic
 toc.outmsg <- function(tic, toc, msg)
@@ -143,6 +157,8 @@ tic.clear <- function()
 
 #' \code{tic.log} - Returns log messages from calls to tic/toc since the last call to \code{\link{tic.clearlog}}.
 #' @param format When true, \code{tic.log} returns a list of formatted \code{toc()} output, otherwise, returns the raw results.
+#' @return \code{tic.log} returns a list of formatted messages (\code{format = TRUE}) or a list
+#'          of lists containing the timestamps and unformatted messages from prior calls to tic/toc.
 #' @export
 #' @rdname tic
 tic.log <- function(format = TRUE)

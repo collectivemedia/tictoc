@@ -128,7 +128,7 @@ my.msg.out <- function(tic, toc, msg, info)
    else outmsg <- paste(info, ": ", msg, ": ", round(toc - tic, 3), " seconds elapsed", sep="")      
 }
 
-test_that("func.out custom message formatting works",
+test_that("func.toc custom message formatting works",
 {
    quiet <- TRUE
    tic.clearlog()
@@ -138,9 +138,9 @@ test_that("func.out custom message formatting works",
          Sys.sleep(2) 
          tic("inner")
             Sys.sleep(3) 
-         tm3 <- toc(log = TRUE, quiet = quiet, func.out = my.msg.out, info = "INFO")
-      tm2 <- toc(log = TRUE, quiet = quiet, func.out = my.msg.out, info = "INFO")
-   tm1 <- toc(log = TRUE, quiet = quiet, func.out = my.msg.out, info = "INFO")
+         tm3 <- toc(log = TRUE, quiet = quiet, func.toc = my.msg.out, info = "INFO")
+      tm2 <- toc(log = TRUE, quiet = quiet, func.toc = my.msg.out, info = "INFO")
+   tm1 <- toc(log = TRUE, quiet = quiet, func.toc = my.msg.out, info = "INFO")
    
    log.txt <- tic.log(format = TRUE)
    tic.clearlog()
