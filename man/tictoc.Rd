@@ -9,8 +9,9 @@ and List structures. \tabular{ll}{ Package: \tab tictoc\cr
 Type: \tab Package\cr Version: \tab 3.5\cr Date: \tab
 2014-06-07\cr License: \tab Apache License, Version 2.0\cr
 Author: \tab Sergei Izrailev\cr Maintainer: \tab Sergei
-Izrailev <sizrailev@collective.com>\cr LazyLoad: \tab
-yes\cr }
+Izrailev <sizrailev@collective.com>\cr Copyright: \tab
+Copyright: Copyright (C) Collective, Inc. | file
+inst/COPYRIGHTS\cr LazyLoad: \tab yes\cr }
 }
 \details{
 This package provides the timing functions \code{tic} and

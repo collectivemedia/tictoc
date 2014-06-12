@@ -29,6 +29,7 @@
 #' License: \tab Apache License, Version 2.0\cr
 #' Author: \tab Sergei Izrailev\cr
 #' Maintainer: \tab Sergei Izrailev <sizrailev@@collective.com>\cr
+#' Copyright: \tab Copyright: Copyright (C) Collective, Inc. | file inst/COPYRIGHTS\cr
 #' LazyLoad: \tab yes\cr
 #' }
 #'

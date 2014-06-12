@@ -93,6 +93,118 @@ calls never get executed.
 \code{tic.log} - Returns log messages from calls to tic/toc
 since the last call to \code{\link{tic.clearlog}}.
 }
+\examples{
+\dontrun{
+
+## Basic use case
+tic()
+print("Do something...")
+Sys.sleep(1)
+toc()
+# 1.034 sec elapsed
+
+## Inline timing example, similar to system.time()
+tic(); for(i in 1:1000000) { j = i / 2 }; toc()
+# 0.527 sec elapsed
+
+## Timing multiple steps
+tic("step 1")
+print("Do something...")
+Sys.sleep(1)
+toc()
+# step 1: 1.005 sec elapsed
+
+tic("step 2")
+print("Do something...")
+Sys.sleep(1)
+toc()
+# step 2: 1.004 sec elapsed
+
+## Timing nested code
+tic("outer")
+   Sys.sleep(1)
+   tic("middle")
+      Sys.sleep(2)
+      tic("inner")
+         Sys.sleep(3)
+      toc()
+# inner: 3.004 sec elapsed
+   toc()
+# middle: 5.008 sec elapsed
+toc()
+# outer: 6.016 sec elapsed
+
+## Timing in a loop and analyzing the results later using tic.log().
+tic.clearlog()
+for (x in 1:10)
+{
+   tic(x)
+   Sys.sleep(1)
+   toc(log = TRUE, quiet = TRUE)
+}
+log.txt <- tic.log(format = TRUE)
+log.lst <- tic.log(format = FALSE)
+tic.clearlog()
+
+timings <- unlist(lapply(log.lst, function(x) x$toc - x$tic))
+mean(timings)
+# [1] 1.001
+writeLines(unlist(log.txt))
+# 1: 1.002 sec elapsed
+# 2: 1 sec elapsed
+# 3: 1.002 sec elapsed
+# 4: 1.001 sec elapsed
+# 5: 1.001 sec elapsed
+# 6: 1.001 sec elapsed
+# 7: 1.001 sec elapsed
+# 8: 1.001 sec elapsed
+# 9: 1.001 sec elapsed
+# 10: 1 sec elapsed
+
+## Using custom callbacks in tic/toc
+my.msg.tic <- function(tic, msg)
+{
+   if (is.null(msg) || is.na(msg) || length(msg) == 0)
+   {
+      outmsg <- paste(round(toc - tic, 3), " seconds elapsed", sep="")
+   }
+   else
+   {
+      outmsg <- paste("Starting ", msg, "...", sep="")
+   }
+}
+
+my.msg.toc <- function(tic, toc, msg, info)
+{
+   if (is.null(msg) || is.na(msg) || length(msg) == 0)
+   {
+      outmsg <- paste(round(toc - tic, 3), " seconds elapsed", sep="")
+   }
+   else
+   {
+      outmsg <- paste(info, ": ", msg, ": ",
+                   round(toc - tic, 3), " seconds elapsed", sep="")
+   }
+}
+
+tic("outer", quiet = FALSE, func.tic = my.msg.tic)
+# Starting outer...
+   Sys.sleep(1)
+   tic("middle", quiet = FALSE, func.tic = my.msg.tic)
+# Starting middle...
+      Sys.sleep(2)
+      tic("inner", quiet = FALSE, func.tic = my.msg.tic)
+         Sys.sleep(3)
+# Starting inner...
+      toc(quiet = FALSE, func.toc = my.msg.toc, info = "INFO")
+# INFO: inner: 3.005 seconds elapsed
+   toc(quiet = FALSE, func.toc = my.msg.toc, info = "INFO")
+# INFO: middle: 5.01 seconds elapsed
+toc(quiet = FALSE, func.toc = my.msg.toc, info = "INFO")
+# INFO: outer: 6.014 seconds elapsed
+
+}
+}
 \seealso{
 \code{\link{Stack}}
 }
