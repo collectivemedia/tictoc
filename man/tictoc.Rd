@@ -1,0 +1,68 @@
+\docType{package}
+\name{tictoc}
+\alias{tictoc}
+\alias{tictoc-package}
+\title{Package tictoc.}
+\description{
+Functions for timing, as well as implementations of Stack
+and List structures.
+}
+\details{
+The \code{tictoc} package provides the timing functions
+\code{tic} and \code{toc} that can be nested. It provides
+an alternative to \code{system.time()} with a different
+syntax similar to that in another well-known software
+package. \code{tic} and \code{toc} are easy to use, and are
+especially useful when timing several sections in more than
+a few lines of code.
+
+In general, calls to \code{tic} and \code{toc} start the
+timer when the \code{tic} call is made and stop the timer
+when the \code{toc} call is made, recording the elapsed
+time between the calls from \code{proc.time}. The default
+behavior is to print a simple message with the elapsed time
+in the \code{toc} call.
+
+The features include the following: \itemize{ \item nesting
+of the \code{tic} and \code{toc} calls \item suppressing
+the default output with \code{quiet = TRUE} \item
+collecting the timings in user-defined variables \item
+{collecting the timings in a log structure provided by the
+package (see \code{\link{tic.log}})} \item providing a
+custom message for each \code{tic} call \item {using custom
+callbacks for the \code{tic} and \code{toc} calls to
+redefine the default behavior and/or add other
+functionality (such as logging to a database)} } In
+addition, this package provides classes \code{\link{Stack}}
+(implemented as a \code{vector}) and \code{\link{List}}
+(implemented as a \code{list}), both of which support
+operations \code{push}, \code{pop}, \code{first},
+\code{last}, \code{clear} and \code{size}.
+}
+\section{Copyright}{
+  Copyright (C) Collective, Inc.
+}
+
+\section{License}{
+  Apache License, Version 2.0, available at
+  http://www.apache.org/licenses/LICENSE-2.0
+}
+
+\section{URL}{
+  http://github.com/collectivemedia/tictoc
+}
+
+\section{Installation from github}{
+  \code{devtools::install_github("collectivemedia/tictoc")}
+}
+\author{
+Sergei Izrailev
+}
+\seealso{
+\code{\link{tic}}, \code{\link{Stack}}
+}
+\keyword{list}
+\keyword{profiling}
+\keyword{stack}
+\keyword{timing}
+
