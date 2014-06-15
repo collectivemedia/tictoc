@@ -51,6 +51,10 @@ operations \code{push}, \code{pop}, \code{first},
 \section{URL}{
   http://github.com/collectivemedia/tictoc
 }
+
+\section{Installation from github}{
+  \code{devtools::install_github("collectivemedia/tictoc")}
+}
 \author{
 Sergei Izrailev
 }
