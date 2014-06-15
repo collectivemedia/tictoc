@@ -61,7 +61,7 @@
 #'    available at http://www.apache.org/licenses/LICENSE-2.0
 #' @section URL: http://github.com/collectivemedia/tictoc
 #' @keywords timing profiling stack list
-#' @family tictoc
+#' @seealso \code{\link{tic}}, \code{\link{Stack}} 
 #' @import methods
 #' 
 # The next and last line should be the word 'NULL'.

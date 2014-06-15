@@ -55,12 +55,7 @@ operations \code{push}, \code{pop}, \code{first},
 Sergei Izrailev
 }
 \seealso{
-Other tictoc: \code{\link{tic}}, \code{\link{tic}},
-\code{\link{tic.clear}}, \code{\link{tic.clear}},
-\code{\link{tic.clearlog}}, \code{\link{tic.clearlog}},
-\code{\link{tic.log}}, \code{\link{tic.log}},
-\code{\link{toc}}, \code{\link{toc}},
-\code{\link{toc.outmsg}}, \code{\link{toc.outmsg}}
+\code{\link{tic}}, \code{\link{Stack}}
 }
 \keyword{list}
 \keyword{profiling}

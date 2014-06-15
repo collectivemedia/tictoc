@@ -58,8 +58,7 @@
 #'        passed to the \code{tic()} call. 
 #' @param ... The other parameters that are passed to \code{func.tic} and \code{func.toc}. 
 #' @return \code{tic} returns the timestamp (invisible).
-#' @title Timing utilities. 
-#' @family tictoc
+#' @title Timing utilities.
 #' @examples
 #' \dontrun{
 #' 
@@ -201,7 +200,7 @@ tic <- function(msg = NULL, quiet = TRUE, func.tic = NULL, ...)
 #'        \code{toc()} calls is computed by \code{toc - tic}. \code{msg} is the string
 #'        passed to the \code{tic()} call. 
 #' @return \code{toc} returns an (invisible) list containing the timestamps \code{tic}, \code{toc}, and the message \code{msg}.
-#' @seealso \code{\link{Stack}} 
+#' @seealso \code{\link{tictoc}}, \code{\link{Stack}} 
 #' @export
 #' @rdname tic
 toc <- function(log = FALSE, quiet = FALSE, func.toc = toc.outmsg, ...)
