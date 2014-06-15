@@ -207,5 +207,8 @@ toc(quiet = FALSE, func.toc = my.msg.toc, info = "INFO")
 }
 \seealso{
 \code{\link{Stack}}
+
+Other tictoc: \code{\link{tictoc}}, \code{\link{tictoc}},
+\code{\link{tictoc-package}}
 }
 

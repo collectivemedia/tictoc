@@ -59,6 +59,7 @@
 #' @param ... The other parameters that are passed to \code{func.tic} and \code{func.toc}. 
 #' @return \code{tic} returns the timestamp (invisible).
 #' @title Timing utilities. 
+#' @family tictoc
 #' @examples
 #' \dontrun{
 #' 
