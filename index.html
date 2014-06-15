@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Package tictoc.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for tictoc"><tr><td>tictoc</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Package tictoc.</h2>
+
+<h3>Description</h3>
+
+<p>Functions for <a href="tic.html">timing</a>, as well as
+implementations of <a href="Stack.html">Stack and List structures</a>.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The <code>tictoc</code> package provides the timing functions
+<code>tic</code> and <code>toc</code> that can be nested. It provides
+an alternative to <code>system.time()</code> with a different
+syntax similar to that in another well-known software
+package. <code>tic</code> and <code>toc</code> are easy to use, and are
+especially useful when timing several sections in more than
+a few lines of code.
+</p>
+<p>In general, calls to <code>tic</code> and <code>toc</code> start the
+timer when the <code>tic</code> call is made and stop the timer
+when the <code>toc</code> call is made, recording the elapsed
+time between the calls from <code>proc.time</code>. The default
+behavior is to print a simple message with the elapsed time
+in the <code>toc</code> call.
+</p>
+<p>The features include the following: </p>
+ <ul>
+<li><p> nesting
+of the <code>tic</code> and <code>toc</code> calls </p>
+</li>
+<li><p> suppressing
+the default output with <code>quiet = TRUE</code> </p>
+</li>
+<li>
+<p>collecting the timings in user-defined variables </p>
+</li>
+<li>
+<p>collecting the timings in a log structure provided by the
+package (see <code>tic.log</code>) </p>
+</li>
+<li><p> providing a
+custom message for each <code>tic</code> call </p>
+</li>
+<li> <p>using custom
+callbacks for the <code>tic</code> and <code>toc</code> calls to
+redefine the default behavior and/or add other
+functionality (such as logging to a database) </p>
+</li></ul>
+<p> In addition, this package provides classes
+<code>Stack</code> (implemented as a <code>vector</code>) and
+<code>List</code> (implemented as a <code>list</code>), both of
+which support operations <code>push</code>, <code>pop</code>,
+<code>first</code>, <code>last</code>, <code>clear</code> and <code>size</code>.
+</p>
+
+
+<h3>Copyright</h3>
+
+<p>Copyright (C) <a href="http://www.collective.com">Collective, Inc.</a>
+</p>
+
+
+<h3>License</h3>
+
+<p>Apache License, Version 2.0, available at
+<a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
+</p>
+
+
+<h3>URL</h3>
+
+<p><a href="http://github.com/collectivemedia/tictoc">http://github.com/collectivemedia/tictoc</a>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Sergei Izrailev, please contact at email stored at <a href="http://scr.im/izrg">http://scr.im/izrg</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="Stack.html">Stack</a> and <a href="tic.html">
+<code>tic</code>,
+<code>toc</code>,
+<code>tic.clear</code>, 
+<code>tic.clearlog</code>,
+<code>tic.log</code>
+</a>
+</p>
+
+
+</body></html>

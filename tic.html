@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Timing utilities.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for tic"><tr><td>tic</td><td
+  align="center"> <a href="index.html">Package tictoc</a></td>
+  <td align="right">R Documentation</td></tr></table>
+
+<h2>Timing utilities.</h2>
+
+<h3>Description</h3>
+
+<p><code>tic</code> - Starts the timer and stores the start time and
+the message on the stack.
+</p>
+<p><code>toc</code> - Notes the current timer and computes elapsed
+time since the matching call to <code>tic()</code>. When
+<code>quiet</code> is <code>FALSE</code>, prints the associated message
+and the elapsed time.
+</p>
+<p><code>toc.outmsg</code> - Formats a message for pretty printing.
+Redefine this for different formatting.
+</p>
+<p><code>tic.clearlog</code> - Clears the tic/toc log.
+</p>
+<p><code>tic.clear</code> - Clears the tic/toc stack. This could be
+useful in cases when because of an error the closing toc()
+calls never get executed.
+</p>
+<p><code>tic.log</code> - Returns log messages from calls to tic/toc
+since the last call to <code>tic.clearlog</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+tic(msg = NULL, quiet = TRUE, func.tic = NULL, ...)
+
+toc(log = FALSE, quiet = FALSE, func.toc = toc.outmsg, ...)
+
+toc.outmsg(tic, toc, msg)
+
+tic.clearlog()
+
+tic.clear()
+
+tic.log(format = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>msg</code></td>
+<td>
+<p>- a text string associated with the timer. It
+gets printed on a call to <code>toc()</code></p>
+</td></tr>
+<tr valign="top"><td><code>func.tic</code></td>
+<td>
+<p>Function producing the formatted message
+with a signature <code>f(tic, toc, msg, ...)</code>.  Here,
+parameters <code>tic</code> and <code>toc</code> are the elapsed
+process times in seconds, so the time elapsed between the
+<code>tic()</code> and <code>toc()</code> calls is computed by
+<code>toc - tic</code>. <code>msg</code> is the string passed to the
+<code>tic()</code> call.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>The other parameters that are passed to
+<code>func.tic</code> and <code>func.toc</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>log</code></td>
+<td>
+<p>- When <code>TRUE</code>, pushes the timings and the
+message in a list of recorded timings.</p>
+</td></tr>
+<tr valign="top"><td><code>quiet</code></td>
+<td>
+<p>When <code>TRUE</code>, doesn't print any
+messages</p>
+</td></tr>
+<tr valign="top"><td><code>func.toc</code></td>
+<td>
+<p>Function producing the formatted message
+with a signature <code>f(tic, toc, msg, ...)</code>.  Here,
+parameters <code>tic</code> and <code>toc</code> are the elapsed
+process times in seconds, so the time elapsed between the
+<code>tic()</code> and <code>toc()</code> calls is computed by
+<code>toc - tic</code>. <code>msg</code> is the string passed to the
+<code>tic()</code> call.</p>
+</td></tr>
+<tr valign="top"><td><code>tic</code></td>
+<td>
+<p>Time from the call to tic()
+(<code>proc.time()["elapsed"]</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>toc</code></td>
+<td>
+<p>Time from the call to toc()
+(<code>proc.time()["elapsed"]</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>format</code></td>
+<td>
+<p>When true, <code>tic.log</code> returns a list of
+formatted <code>toc()</code> output, otherwise, returns the raw
+results.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>tic</code> returns the timestamp (invisible).
+</p>
+<p><code>toc</code> returns an (invisible) list containing the
+timestamps <code>tic</code>, <code>toc</code>, and the message
+<code>msg</code>.
+</p>
+<p><code>toc.outmsg</code> returns formatted message.
+</p>
+<p><code>tic.log</code> returns a list of formatted messages
+(<code>format = TRUE</code>) or a list of lists containing the
+timestamps and unformatted messages from prior calls to
+tic/toc.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="Stack.html"><code>Stack</code></a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+
+## Basic use case
+tic()
+print("Do something...")
+Sys.sleep(1)
+toc()
+# 1.034 sec elapsed
+
+## Inline timing example, similar to system.time()
+tic(); for(i in 1:1000000) { j = i / 2 }; toc()
+# 0.527 sec elapsed
+
+## Timing multiple steps
+tic("step 1")
+print("Do something...")
+Sys.sleep(1)
+toc()
+# step 1: 1.005 sec elapsed
+
+tic("step 2")
+print("Do something...")
+Sys.sleep(1)
+toc()
+# step 2: 1.004 sec elapsed
+
+## Timing nested code
+tic("outer")
+   Sys.sleep(1)
+   tic("middle")
+      Sys.sleep(2)
+      tic("inner")
+         Sys.sleep(3)
+      toc()
+# inner: 3.004 sec elapsed
+   toc()
+# middle: 5.008 sec elapsed
+toc()
+# outer: 6.016 sec elapsed
+
+## Timing in a loop and analyzing the results later using tic.log().
+tic.clearlog()
+for (x in 1:10)
+{
+   tic(x)
+   Sys.sleep(1)
+   toc(log = TRUE, quiet = TRUE)
+}
+log.txt &lt;- tic.log(format = TRUE)
+log.lst &lt;- tic.log(format = FALSE)
+tic.clearlog()
+
+timings &lt;- unlist(lapply(log.lst, function(x) x$toc - x$tic))
+mean(timings)
+# [1] 1.001
+writeLines(unlist(log.txt))
+# 1: 1.002 sec elapsed
+# 2: 1 sec elapsed
+# 3: 1.002 sec elapsed
+# 4: 1.001 sec elapsed
+# 5: 1.001 sec elapsed
+# 6: 1.001 sec elapsed
+# 7: 1.001 sec elapsed
+# 8: 1.001 sec elapsed
+# 9: 1.001 sec elapsed
+# 10: 1 sec elapsed
+
+## Using custom callbacks in tic/toc
+my.msg.tic &lt;- function(tic, msg)
+{
+   if (is.null(msg) || is.na(msg) || length(msg) == 0)
+   {
+      outmsg &lt;- paste(round(toc - tic, 3), " seconds elapsed", sep="")
+   }
+   else
+   {
+      outmsg &lt;- paste("Starting ", msg, "...", sep="")
+   }
+}
+
+my.msg.toc &lt;- function(tic, toc, msg, info)
+{
+   if (is.null(msg) || is.na(msg) || length(msg) == 0)
+   {
+      outmsg &lt;- paste(round(toc - tic, 3), " seconds elapsed", sep="")
+   }
+   else
+   {
+      outmsg &lt;- paste(info, ": ", msg, ": ",
+                   round(toc - tic, 3), " seconds elapsed", sep="")
+   }
+}
+
+tic("outer", quiet = FALSE, func.tic = my.msg.tic)
+# Starting outer...
+   Sys.sleep(1)
+   tic("middle", quiet = FALSE, func.tic = my.msg.tic)
+# Starting middle...
+      Sys.sleep(2)
+      tic("inner", quiet = FALSE, func.tic = my.msg.tic)
+         Sys.sleep(3)
+# Starting inner...
+      toc(quiet = FALSE, func.toc = my.msg.toc, info = "INFO")
+# INFO: inner: 3.005 seconds elapsed
+   toc(quiet = FALSE, func.toc = my.msg.toc, info = "INFO")
+# INFO: middle: 5.01 seconds elapsed
+toc(quiet = FALSE, func.toc = my.msg.toc, info = "INFO")
+# INFO: outer: 6.014 seconds elapsed
+
+
+## End(Not run)
+</pre>
+
+
+</body></html>
