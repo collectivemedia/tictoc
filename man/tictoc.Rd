@@ -33,11 +33,11 @@ custom message for each \code{tic} call \item {using custom
 callbacks for the \code{tic} and \code{toc} calls to
 redefine the default behavior and/or add other
 functionality (such as logging to a database)} } In
-addition, this package provides classes
-(\code{\link{Stack}}), implemented as a \code{vector}, and
-\code{\link{List}}, implemented as a \code{list}, both of
-which support operations \code{push}, \code{pop},
-\code{first}, \code{last}, \code{clear} and \code{size}.
+addition, this package provides classes \code{\link{Stack}}
+(implemented as a \code{vector}) and \code{\link{List}}
+(implemented as a \code{list}), both of which support
+operations \code{push}, \code{pop}, \code{first},
+\code{last}, \code{clear} and \code{size}.
 }
 \section{Copyright}{
   Copyright (C) Collective, Inc.
