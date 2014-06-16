@@ -2,13 +2,22 @@
 \alias{List}
 \alias{Stack}
 \alias{as.List}
+\alias{as.List.default}
 \alias{as.Stack}
+\alias{as.Stack.default}
 \alias{clear}
+\alias{clear.default}
 \alias{first}
+\alias{first.default}
 \alias{last}
+\alias{last.default}
 \alias{pop}
+\alias{pop.default}
+\alias{push.default}
 \alias{shift}
+\alias{shift.default}
 \alias{size}
+\alias{size.default}
 \title{Stack and List classes and methods}
 \usage{
 \method{push}{default}(x, value)
