@@ -21,6 +21,9 @@
 # limitations under the License.
 #-------------------------------------------------------------------------------
 
+# to satisfy R CMD check -- the .Data object is actually defined in S3 class.
+.Data <- vector() 
+
 # STACK
 
 #' \code{push} - Append an element.
@@ -29,7 +32,7 @@
 #' @param s A structure to be converted to a Stack or List.
 #' @name Stack
 #' @title Stack and List classes and methods
-#' @aliases List
+#' @aliases Stack List push.default pop.default clear.default shift.default first.default last.default size.default as.Stack.default as.List.default
 #' @rdname Stack
 #' @export
 #' @method push default
@@ -89,7 +92,8 @@ as.List.default <- function(s)
    lst
 }
 
-#' @aliases push pop clear shift first last size
+#' @aliases push pop clear shift first last size blah
+#' @export
 push.default  <- function(x, value) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))
 pop.default  <- function(x) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))
 clear.default  <- function(x) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))
