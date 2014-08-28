@@ -13,7 +13,7 @@ Description: This package provides the timing functions 'tic' and 'toc' that
     'clear'.
 URL: http://github.com/collectivemedia/tictoc
 Depends:
-    R (>= 3.0.3),
+    R (>= 2.15),
     methods
 License: Apache License (== 2.0) | file LICENSE
 Copyright: Copyright (C) Collective, Inc. | file inst/COPYRIGHTS
