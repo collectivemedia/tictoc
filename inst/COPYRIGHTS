@@ -1,4 +1,5 @@
 Copyright (C) 2011-2014 Collective, Inc.
+Portions are Copyright (C) 2017 Jabiru Ventures LLC
 
 #-------------------------------------------------------------------------------
 # Attribution notice: the idea to store the timing in the baseenv() came from the post 
