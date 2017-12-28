@@ -1,7 +1,7 @@
 Package: tictoc
 Title: Functions for timing R scripts, as well as implementations of Stack and
     List structures.
-Version: 1.0
+Version: 1.1
 Author: Sergei Izrailev
 Maintainer: Sergei Izrailev <sizrailev@jabiruventures.com>
 Description: This package provides the timing functions 'tic' and 'toc' that
@@ -18,3 +18,4 @@ Depends:
 License: Apache License (== 2.0) | file LICENSE
 Copyright: Copyright (C) Collective, Inc. | file inst/COPYRIGHTS
 LazyData: true
+RoxygenNote: 6.0.1
