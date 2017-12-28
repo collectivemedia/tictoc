@@ -2,18 +2,18 @@
 #
 # Package tictoc
 #
-# tic() and toc() timing functions.  
+# tic() and toc() timing functions.
 #
 # Sergei Izrailev, 2011-2012
 #-------------------------------------------------------------------------------
 # Copyright 2011-2014 Collective, Inc.
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 # http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# Attribution notice: the idea to store the timing in the baseenv() came from the post 
+# Attribution notice: the idea to store the timing in the baseenv() came from the post
 # http://stackoverflow.com/questions/1716012/stopwatch-function-in-r
 # by http://stackoverflow.com/users/134830/richie-cotton
 # stackoverflow license: http://creativecommons.org/licenses/by-sa/2.5/
@@ -32,11 +32,11 @@
 #    type <- match.arg(type)
 #    assign(".type", type, envir=baseenv())
 #    if(gcFirst) gc(FALSE)
-#    tic <- proc.time()[type]         
+#    tic <- proc.time()[type]
 #    assign(".tic", tic, envir=baseenv())
 #    invisible(tic)
 # }
-# 
+#
 # toc <- function()
 # {
 #    type <- get(".type", envir=baseenv())
@@ -49,57 +49,57 @@
 
 #' \code{tic} - Starts the timer and stores the start time and the message on the stack.
 #' @name tic
-#' @aliases toc.outmsg tic.clearlog tic.clear tic.log tic toc 
+#' @aliases toc.outmsg tic.clearlog tic.clear tic.log tic toc
 #' @param msg - a text string associated with the timer. It gets printed on a call to \code{toc()}
 #' @param func.tic Function producing the formatted message with a signature \code{f(tic, toc, msg, ...)}.
-#'        Here, parameters \code{tic} and \code{toc} are the elapsed process 
-#'        times in seconds, so the time elapsed between the \code{tic()} and 
+#'        Here, parameters \code{tic} and \code{toc} are the elapsed process
+#'        times in seconds, so the time elapsed between the \code{tic()} and
 #'        \code{toc()} calls is computed by \code{toc - tic}. \code{msg} is the string
-#'        passed to the \code{tic()} call. 
-#' @param ... The other parameters that are passed to \code{func.tic} and \code{func.toc}. 
+#'        passed to the \code{tic()} call.
+#' @param ... The other parameters that are passed to \code{func.tic} and \code{func.toc}.
 #' @return \code{tic} returns the timestamp (invisible).
 #' @title Timing utilities.
 #' @examples
 #' \dontrun{
-#' 
+#'
 #' ## Basic use case
 #' tic()
 #' print("Do something...")
 #' Sys.sleep(1)
 #' toc()
 #' # 1.034 sec elapsed
-#' 
+#'
 #' ## Inline timing example, similar to system.time()
 #' tic(); for(i in 1:1000000) { j = i / 2 }; toc()
 #' # 0.527 sec elapsed
-#' 
-#' ## Timing multiple steps 
+#'
+#' ## Timing multiple steps
 #' tic("step 1")
 #' print("Do something...")
 #' Sys.sleep(1)
 #' toc()
 #' # step 1: 1.005 sec elapsed
-#' 
+#'
 #' tic("step 2")
 #' print("Do something...")
 #' Sys.sleep(1)
 #' toc()
 #' # step 2: 1.004 sec elapsed
-#' 
+#'
 #' ## Timing nested code
 #' tic("outer")
-#'    Sys.sleep(1) 
-#'    tic("middle") 
-#'       Sys.sleep(2) 
+#'    Sys.sleep(1)
+#'    tic("middle")
+#'       Sys.sleep(2)
 #'       tic("inner")
-#'          Sys.sleep(3) 
+#'          Sys.sleep(3)
 #'       toc()
 #' # inner: 3.004 sec elapsed
 #'    toc()
 #' # middle: 5.008 sec elapsed
 #' toc()
 #' # outer: 6.016 sec elapsed
-#' 
+#'
 #' ## Timing in a loop and analyzing the results later using tic.log().
 #' tic.clearlog()
 #' for (x in 1:10)
@@ -111,7 +111,7 @@
 #' log.txt <- tic.log(format = TRUE)
 #' log.lst <- tic.log(format = FALSE)
 #' tic.clearlog()
-#' 
+#'
 #' timings <- unlist(lapply(log.lst, function(x) x$toc - x$tic))
 #' mean(timings)
 #' # [1] 1.001
@@ -126,41 +126,41 @@
 #' # 8: 1.001 sec elapsed
 #' # 9: 1.001 sec elapsed
 #' # 10: 1 sec elapsed
-#' 
+#'
 #' ## Using custom callbacks in tic/toc
 #' my.msg.tic <- function(tic, msg)
 #' {
-#'    if (is.null(msg) || is.na(msg) || length(msg) == 0) 
-#'    {
-#'       outmsg <- paste(round(toc - tic, 3), " seconds elapsed", sep="")
-#'    } 
-#'    else 
-#'    {
-#'       outmsg <- paste("Starting ", msg, "...", sep="")
-#'    }      
-#' }
-#' 
-#' my.msg.toc <- function(tic, toc, msg, info)
-#' {
-#'    if (is.null(msg) || is.na(msg) || length(msg) == 0) 
+#'    if (is.null(msg) || is.na(msg) || length(msg) == 0)
 #'    {
 #'       outmsg <- paste(round(toc - tic, 3), " seconds elapsed", sep="")
 #'    }
-#'    else 
+#'    else
 #'    {
-#'       outmsg <- paste(info, ": ", msg, ": ", 
-#'                    round(toc - tic, 3), " seconds elapsed", sep="")
-#'    }      
+#'       outmsg <- paste("Starting ", msg, "...", sep="")
+#'    }
 #' }
-#' 
+#'
+#' my.msg.toc <- function(tic, toc, msg, info)
+#' {
+#'    if (is.null(msg) || is.na(msg) || length(msg) == 0)
+#'    {
+#'       outmsg <- paste(round(toc - tic, 3), " seconds elapsed", sep="")
+#'    }
+#'    else
+#'    {
+#'       outmsg <- paste(info, ": ", msg, ": ",
+#'                    round(toc - tic, 3), " seconds elapsed", sep="")
+#'    }
+#' }
+#'
 #' tic("outer", quiet = FALSE, func.tic = my.msg.tic)
 #' # Starting outer...
-#'    Sys.sleep(1) 
-#'    tic("middle", quiet = FALSE, func.tic = my.msg.tic) 
+#'    Sys.sleep(1)
+#'    tic("middle", quiet = FALSE, func.tic = my.msg.tic)
 #' # Starting middle...
-#'       Sys.sleep(2) 
+#'       Sys.sleep(2)
 #'       tic("inner", quiet = FALSE, func.tic = my.msg.tic)
-#'          Sys.sleep(3) 
+#'          Sys.sleep(3)
 #' # Starting inner...
 #'       toc(quiet = FALSE, func.toc = my.msg.toc, info = "INFO")
 #' # INFO: inner: 3.005 seconds elapsed
@@ -168,19 +168,19 @@
 #' # INFO: middle: 5.01 seconds elapsed
 #' toc(quiet = FALSE, func.toc = my.msg.toc, info = "INFO")
 #' # INFO: outer: 6.014 seconds elapsed
-#' 
+#'
 #' }
 #' @export
 #' @rdname tic
 tic <- function(msg = NULL, quiet = TRUE, func.tic = NULL, ...)
-{ 
+{
    stim <- get(".tictoc", envir=baseenv())
    smsg <- get(".ticmsg", envir=baseenv())
    tic <- proc.time()["elapsed"]
    if (!is.null(func.tic))
    {
       outmsg <- func.tic(tic, msg, ...)
-      if (!quiet) writeLines(outmsg)      
+      if (!quiet) writeLines(outmsg)
    }
    push(stim, tic)
    push(smsg, msg)
@@ -188,19 +188,19 @@ tic <- function(msg = NULL, quiet = TRUE, func.tic = NULL, ...)
 }
 
 #-------------------------------------------------------------------------------
-# TODO: pass toc.outmsg to tic/toc and tic.log with a default, passing ... 
+# TODO: pass toc.outmsg to tic/toc and tic.log with a default, passing ...
 
 #' \code{toc} - Notes the current timer and computes elapsed time since the matching call to \code{tic()}.
 #' When \code{quiet} is \code{FALSE}, prints the associated message and the elapsed time.
 #' @param log - When \code{TRUE}, pushes the timings and the message in a list of recorded timings.
 #' @param quiet When \code{TRUE}, doesn't print any messages
 #' @param func.toc Function producing the formatted message with a signature \code{f(tic, toc, msg, ...)}.
-#'        Here, parameters \code{tic} and \code{toc} are the elapsed process 
-#'        times in seconds, so the time elapsed between the \code{tic()} and 
+#'        Here, parameters \code{tic} and \code{toc} are the elapsed process
+#'        times in seconds, so the time elapsed between the \code{tic()} and
 #'        \code{toc()} calls is computed by \code{toc - tic}. \code{msg} is the string
-#'        passed to the \code{tic()} call. 
+#'        passed to the \code{tic()} call.
 #' @return \code{toc} returns an (invisible) list containing the timestamps \code{tic}, \code{toc}, and the message \code{msg}.
-#' @seealso \code{\link{tictoc}}, \code{\link{Stack}} 
+#' @seealso \code{\link{tictoc}}, \code{\link{Stack}}
 #' @export
 #' @rdname tic
 toc <- function(log = FALSE, quiet = FALSE, func.toc = toc.outmsg, ...)
@@ -214,10 +214,10 @@ toc <- function(log = FALSE, quiet = FALSE, func.toc = toc.outmsg, ...)
    if (!is.null(func.toc))
    {
       outmsg <- func.toc(tic, toc, msg, ...)
-      if (!quiet) writeLines(outmsg)      
+      if (!quiet) writeLines(outmsg)
    }
    res <- list(tic=tic, toc=toc, msg=msg)
-   if (log) 
+   if (log)
    {
       ticlog <- get(".ticlog", envir=baseenv())
       push(ticlog, res)
@@ -236,7 +236,7 @@ toc <- function(log = FALSE, quiet = FALSE, func.toc = toc.outmsg, ...)
 toc.outmsg <- function(tic, toc, msg)
 {
    if (is.null(msg) || is.na(msg) || length(msg) == 0) outmsg <- paste(round(toc - tic, 3), " sec elapsed", sep="")
-   else outmsg <- paste(msg, ": ", round(toc - tic, 3), " sec elapsed", sep="")   
+   else outmsg <- paste(msg, ": ", round(toc - tic, 3), " sec elapsed", sep="")
 }
 
 #-------------------------------------------------------------------------------
@@ -244,7 +244,7 @@ toc.outmsg <- function(tic, toc, msg)
 #' \code{tic.clearlog} - Clears the tic/toc log.
 #' @export
 #' @rdname tic
-tic.clearlog <- function() 
+tic.clearlog <- function()
 {
    ticlog <- get(".ticlog", envir=baseenv())
    clear(ticlog)
@@ -256,7 +256,7 @@ tic.clearlog <- function()
 #' the closing toc() calls never get executed.
 #' @export
 #' @rdname tic
-tic.clear <- function() 
+tic.clear <- function()
 {
    stim <- get(".tictoc", envir=baseenv())
    smsg <- get(".ticmsg", envir=baseenv())

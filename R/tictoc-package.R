@@ -59,9 +59,9 @@
 #' @section Copyright: Copyright (C) Collective, Inc.; with portions Copyright (C) Jabiru Ventures LLC
 #' @section License: Apache License, Version 2.0,
 #'    available at http://www.apache.org/licenses/LICENSE-2.0
-#' @section URL: http://github.com/collectivemedia/tictoc
+#' @section URL: http://github.com/jabiru/tictoc
 #' @section Installation from github:
-#' \code{devtools::install_github("collectivemedia/tictoc")}
+#' \code{devtools::install_github("jabiru/tictoc")}
 #' @keywords timing profiling stack list
 #' @seealso \code{\link{tic}}, \code{\link{Stack}}
 #' @import methods
