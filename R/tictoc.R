@@ -47,6 +47,7 @@
 # }
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{tic} - Starts the timer and stores the start time and the message on the stack.
 #' @name tic
 #' @aliases toc.outmsg tic.clearlog tic.clear tic.log tic toc
@@ -190,6 +191,7 @@ tic <- function(msg = NULL, quiet = TRUE, func.tic = NULL, ...)
 #-------------------------------------------------------------------------------
 # TODO: pass toc.outmsg to tic/toc and tic.log with a default, passing ...
 
+#' @description
 #' \code{toc} - Notes the current timer and computes elapsed time since the matching call to \code{tic()}.
 #' When \code{quiet} is \code{FALSE}, prints the associated message and the elapsed time.
 #' @param log - When \code{TRUE}, pushes the timings and the message in a list of recorded timings.
@@ -227,6 +229,7 @@ toc <- function(log = FALSE, quiet = FALSE, func.toc = toc.outmsg, ...)
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{toc.outmsg} - Formats a message for pretty printing. Redefine this for different formatting.
 #' @param tic Time from the call to tic() (\code{proc.time()["elapsed"]})
 #' @param toc Time from the call to toc() (\code{proc.time()["elapsed"]})
@@ -241,6 +244,7 @@ toc.outmsg <- function(tic, toc, msg)
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{tic.clearlog} - Clears the tic/toc log.
 #' @export
 #' @rdname tic
@@ -252,6 +256,7 @@ tic.clearlog <- function()
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{tic.clear} - Clears the tic/toc stack. This could be useful in cases when because of an error
 #' the closing toc() calls never get executed.
 #' @export
@@ -266,6 +271,7 @@ tic.clear <- function()
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{tic.log} - Returns log messages from calls to tic/toc since the last call to \code{\link{tic.clearlog}}.
 #' @param format When true, \code{tic.log} returns a list of formatted \code{toc()} output, otherwise, returns the raw results.
 #' @return \code{tic.log} returns a list of formatted messages (\code{format = TRUE}) or a list

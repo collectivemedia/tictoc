@@ -21,8 +21,6 @@
 \alias{size}
 \alias{as.Stack}
 \alias{as.List}
-\alias{Stack}
-\alias{List}
 \title{Stack and List classes and methods}
 \usage{
 \method{push}{default}(x, value)

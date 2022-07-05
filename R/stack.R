@@ -28,12 +28,13 @@
 # STACK
 #-------------------------------------------------------------------------------
 
+#' Stack and List classes and methods
+#'
 #' \code{push} - Append an element.
 #' @param x A Stack or List object.
 #' @param value Value to append.
 #' @param s A structure to be converted to a Stack or List.
 #' @name Stack
-#' @title Stack and List classes and methods
 #' @aliases Stack List push.default pop.default clear.default shift.default first.default last.default size.default as.Stack.default as.List.default
 #' @rdname Stack
 #' @export
@@ -42,6 +43,7 @@ push <- function(x, value) UseMethod("push")    # append an element
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{pop} - Remove and return the last element.
 #' @rdname Stack
 #' @export
@@ -50,6 +52,7 @@ pop  <- function(x) UseMethod("pop")            # pop the last element
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{clear} - Remove all elements.
 #' @rdname Stack
 #' @export
@@ -58,6 +61,7 @@ clear  <- function(x) UseMethod("clear")
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{shift} - Remove and return the first element.
 #' @rdname Stack
 #' @export
@@ -66,6 +70,7 @@ shift  <- function(x) UseMethod("shift")        # pop the first element
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{first} - Return the first element.
 #' @rdname Stack
 #' @export
@@ -74,6 +79,7 @@ first  <- function(x) UseMethod("first")        # return the first element
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{last} - Return the last element.
 #' @rdname Stack
 #' @export
@@ -82,6 +88,7 @@ last  <- function(x) UseMethod("last")        # return the last element
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{size} - Return the number of  elements.
 #' @rdname Stack
 #' @export
@@ -90,6 +97,7 @@ size  <- function(x) UseMethod("size")        # return the number of elements
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{as.Stack} - Creates a new Stack from (typically, vector) \code{s}.
 #' @rdname Stack
 #' @export
@@ -102,6 +110,7 @@ as.Stack.default <- function(s)
    stack
 }
 
+#' @description
 #' \code{as.List} - Creates a new List from (typically, list) \code{s}.
 #' @rdname Stack
 #' @export
@@ -116,7 +125,7 @@ as.List.default <- function(s)
 
 #-------------------------------------------------------------------------------
 
-#' @aliases push pop clear shift first last size blah
+#' @aliases push pop clear shift first last size
 #' @export
 push.default  <- function(x, value) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))
 pop.default  <- function(x) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))
@@ -139,9 +148,11 @@ print.List <- function(x) print(x$.Data)
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{Stack()} - Creates and keeps a stack of items of the same type, implemented as an R vector.
 #' The type is determined by the first \code{push} operation.
 #' @rdname Stack
+#' @export
 Stack <- function()
 {
    stack <- new.env()
@@ -199,9 +210,11 @@ first.List  <- function(x) x$first()
 last.List  <- function(x) x$last()
 size.List  <- function(x) x$size()
 
+#' @description
 #' \code{List()} - Creates and keeps a list of items of the same type, implemented as an R list.
 #' The type is determined by the first \code{push} operation.
 #' @rdname Stack
+#' @export
 List <- function()
 {
    lst <- new.env()
