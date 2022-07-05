@@ -1,3 +1,6 @@
 ^\.travis\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.idea$
+^\.settings$
+^\.git$
