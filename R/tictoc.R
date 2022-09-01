@@ -4,7 +4,7 @@
 #
 # tic() and toc() timing functions.
 #
-# Sergei Izrailev, 2011-2012
+# Sergei Izrailev, 2011-2012, 2022
 #-------------------------------------------------------------------------------
 # Copyright 2011-2014 Collective, Inc.
 #
@@ -26,6 +26,7 @@
 # http://stackoverflow.com/questions/1716012/stopwatch-function-in-r
 # by http://stackoverflow.com/users/134830/richie-cotton
 # stackoverflow license: http://creativecommons.org/licenses/by-sa/2.5/
+# It was changed to globalenv in this package.
 #
 # tic <- function(gcFirst = TRUE, type=c("elapsed", "user.self", "sys.self"))
 # {
@@ -39,9 +40,9 @@
 #
 # toc <- function()
 # {
-#    type <- get(".type", envir=baseenv())
+#    type <- get(".type", envir=globalenv())
 #    toc <- proc.time()[type]
-#    tic <- get(".tic", envir=baseenv())
+#    tic <- get(".tic", envir=globalenv())
 #    print(toc - tic)
 #    invisible(toc)
 # }
@@ -175,8 +176,8 @@
 #' @rdname tic
 tic <- function(msg = NULL, quiet = TRUE, func.tic = NULL, ...)
 {
-   stim <- get(".tictoc", envir=baseenv())
-   smsg <- get(".ticmsg", envir=baseenv())
+   stim <- get(".tictoc", envir=globalenv())
+   smsg <- get(".ticmsg", envir=globalenv())
    tic <- proc.time()["elapsed"]
    if (!is.null(func.tic))
    {
@@ -208,8 +209,8 @@ tic <- function(msg = NULL, quiet = TRUE, func.tic = NULL, ...)
 toc <- function(log = FALSE, quiet = FALSE, func.toc = toc.outmsg, ...)
 {
    toc <- proc.time()["elapsed"]
-   stim <- get(".tictoc", envir=baseenv())
-   smsg <- get(".ticmsg", envir=baseenv())
+   stim <- get(".tictoc", envir=globalenv())
+   smsg <- get(".ticmsg", envir=globalenv())
    if (size(.tictoc) == 0) return(invisible(NULL))
    tic <- pop(stim)
    msg <- pop(smsg)
@@ -221,7 +222,7 @@ toc <- function(log = FALSE, quiet = FALSE, func.toc = toc.outmsg, ...)
    res <- list(tic=tic, toc=toc, msg=msg)
    if (log)
    {
-      ticlog <- get(".ticlog", envir=baseenv())
+      ticlog <- get(".ticlog", envir=globalenv())
       push(ticlog, res)
    }
    invisible(res)
@@ -250,7 +251,7 @@ toc.outmsg <- function(tic, toc, msg)
 #' @rdname tic
 tic.clearlog <- function()
 {
-   ticlog <- get(".ticlog", envir=baseenv())
+   ticlog <- get(".ticlog", envir=globalenv())
    clear(ticlog)
 }
 
@@ -263,8 +264,8 @@ tic.clearlog <- function()
 #' @rdname tic
 tic.clear <- function()
 {
-   stim <- get(".tictoc", envir=baseenv())
-   smsg <- get(".ticmsg", envir=baseenv())
+   stim <- get(".tictoc", envir=globalenv())
+   smsg <- get(".ticmsg", envir=globalenv())
    clear(stim)
    clear(smsg)
 }
@@ -280,7 +281,7 @@ tic.clear <- function()
 #' @rdname tic
 tic.log <- function(format = TRUE)
 {
-   lst <- get(".ticlog", envir=baseenv())$.Data
+   lst <- get(".ticlog", envir=globalenv())$.Data
    if (format) return(lapply(lst, function(x) toc.outmsg(x$tic, x$toc, x$msg)))
    else return(lst)
 }

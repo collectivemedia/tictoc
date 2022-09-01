@@ -4,7 +4,7 @@
 #
 # Stack and List
 #
-# Sergei Izrailev, 2011, 2014
+# Sergei Izrailev, 2011, 2014, 2022
 #-------------------------------------------------------------------------------
 # Copyright 2011-2014 Collective, Inc.
 #

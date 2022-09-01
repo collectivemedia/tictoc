@@ -4,7 +4,7 @@
 #
 # Initialization.
 #
-# Sergei Izrailev, 2011-2012
+# Sergei Izrailev, 2011-2012, 2022
 #-------------------------------------------------------------------------------
 # Copyright 2011-2014 Collective, Inc.
 #
