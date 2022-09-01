@@ -4,7 +4,7 @@
 #
 # tic() and toc() timing functions.
 #
-# Sergei Izrailev, 2011-2012
+# Sergei Izrailev, 2011-2012, 2022
 #-------------------------------------------------------------------------------
 # Copyright 2011-2014 Collective, Inc.
 #
@@ -26,6 +26,7 @@
 # http://stackoverflow.com/questions/1716012/stopwatch-function-in-r
 # by http://stackoverflow.com/users/134830/richie-cotton
 # stackoverflow license: http://creativecommons.org/licenses/by-sa/2.5/
+# It was changed to use globalenv in this package.
 #
 # tic <- function(gcFirst = TRUE, type=c("elapsed", "user.self", "sys.self"))
 # {
@@ -47,6 +48,7 @@
 # }
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{tic} - Starts the timer and stores the start time and the message on the stack.
 #' @name tic
 #' @aliases toc.outmsg tic.clearlog tic.clear tic.log tic toc
@@ -174,8 +176,8 @@
 #' @rdname tic
 tic <- function(msg = NULL, quiet = TRUE, func.tic = NULL, ...)
 {
-   stim <- get(".tictoc", envir=baseenv())
-   smsg <- get(".ticmsg", envir=baseenv())
+   stim <- get(".tictoc", envir=globalenv())
+   smsg <- get(".ticmsg", envir=globalenv())
    tic <- proc.time()["elapsed"]
    if (!is.null(func.tic))
    {
@@ -190,6 +192,7 @@ tic <- function(msg = NULL, quiet = TRUE, func.tic = NULL, ...)
 #-------------------------------------------------------------------------------
 # TODO: pass toc.outmsg to tic/toc and tic.log with a default, passing ...
 
+#' @description
 #' \code{toc} - Notes the current timer and computes elapsed time since the matching call to \code{tic()}.
 #' When \code{quiet} is \code{FALSE}, prints the associated message and the elapsed time.
 #' @param log - When \code{TRUE}, pushes the timings and the message in a list of recorded timings.
@@ -206,8 +209,8 @@ tic <- function(msg = NULL, quiet = TRUE, func.tic = NULL, ...)
 toc <- function(log = FALSE, quiet = FALSE, func.toc = toc.outmsg, ...)
 {
    toc <- proc.time()["elapsed"]
-   stim <- get(".tictoc", envir=baseenv())
-   smsg <- get(".ticmsg", envir=baseenv())
+   stim <- get(".tictoc", envir=globalenv())
+   smsg <- get(".ticmsg", envir=globalenv())
    if (size(.tictoc) == 0) return(invisible(NULL))
    tic <- pop(stim)
    msg <- pop(smsg)
@@ -219,7 +222,7 @@ toc <- function(log = FALSE, quiet = FALSE, func.toc = toc.outmsg, ...)
    res <- list(tic=tic, toc=toc, msg=msg)
    if (log)
    {
-      ticlog <- get(".ticlog", envir=baseenv())
+      ticlog <- get(".ticlog", envir=globalenv())
       push(ticlog, res)
    }
    invisible(res)
@@ -227,6 +230,7 @@ toc <- function(log = FALSE, quiet = FALSE, func.toc = toc.outmsg, ...)
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{toc.outmsg} - Formats a message for pretty printing. Redefine this for different formatting.
 #' @param tic Time from the call to tic() (\code{proc.time()["elapsed"]})
 #' @param toc Time from the call to toc() (\code{proc.time()["elapsed"]})
@@ -235,37 +239,41 @@ toc <- function(log = FALSE, quiet = FALSE, func.toc = toc.outmsg, ...)
 #' @rdname tic
 toc.outmsg <- function(tic, toc, msg)
 {
-   if (is.null(msg) || is.na(msg) || length(msg) == 0) outmsg <- paste(round(toc - tic, 3), " sec elapsed", sep="")
-   else outmsg <- paste(msg, ": ", round(toc - tic, 3), " sec elapsed", sep="")
+   if (is.null(msg) || is.na(msg) || length(msg) == 0) outmsg <- paste0(round(toc - tic, 3), " sec elapsed")
+   else outmsg <- paste0(msg, ": ", round(toc - tic, 3), " sec elapsed")
+   outmsg
 }
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{tic.clearlog} - Clears the tic/toc log.
 #' @export
 #' @rdname tic
 tic.clearlog <- function()
 {
-   ticlog <- get(".ticlog", envir=baseenv())
+   ticlog <- get(".ticlog", envir=globalenv())
    clear(ticlog)
 }
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{tic.clear} - Clears the tic/toc stack. This could be useful in cases when because of an error
 #' the closing toc() calls never get executed.
 #' @export
 #' @rdname tic
 tic.clear <- function()
 {
-   stim <- get(".tictoc", envir=baseenv())
-   smsg <- get(".ticmsg", envir=baseenv())
+   stim <- get(".tictoc", envir=globalenv())
+   smsg <- get(".ticmsg", envir=globalenv())
    clear(stim)
    clear(smsg)
 }
 
 #-------------------------------------------------------------------------------
 
+#' @description
 #' \code{tic.log} - Returns log messages from calls to tic/toc since the last call to \code{\link{tic.clearlog}}.
 #' @param format When true, \code{tic.log} returns a list of formatted \code{toc()} output, otherwise, returns the raw results.
 #' @return \code{tic.log} returns a list of formatted messages (\code{format = TRUE}) or a list
@@ -274,7 +282,7 @@ tic.clear <- function()
 #' @rdname tic
 tic.log <- function(format = TRUE)
 {
-   lst <- get(".ticlog", envir=baseenv())$.Data
+   lst <- get(".ticlog", envir=globalenv())$.Data
    if (format) return(lapply(lst, function(x) toc.outmsg(x$tic, x$toc, x$msg)))
    else return(lst)
 }

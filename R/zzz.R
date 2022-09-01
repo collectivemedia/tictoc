@@ -4,7 +4,7 @@
 #
 # Initialization.
 #
-# Sergei Izrailev, 2011-2012
+# Sergei Izrailev, 2011-2012, 2022
 #-------------------------------------------------------------------------------
 # Copyright 2011-2014 Collective, Inc.
 #
@@ -23,9 +23,11 @@
 
 .onLoad <- function(libname, pkgname)
 {
-   assign(".ticmsg", Stack(), envir=baseenv())
-   assign(".tictoc", Stack(), envir=baseenv())
-   assign(".ticlog", List() , envir=baseenv())
+   pos <- 1
+   envir <- as.environment(pos)
+   assign(".ticmsg", Stack(), envir = envir)
+   assign(".tictoc", Stack(), envir = envir)
+   assign(".ticlog", List(), envir = envir)
 }
 
 #-------------------------------------------------------------------------------
