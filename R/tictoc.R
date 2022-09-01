@@ -26,7 +26,7 @@
 # http://stackoverflow.com/questions/1716012/stopwatch-function-in-r
 # by http://stackoverflow.com/users/134830/richie-cotton
 # stackoverflow license: http://creativecommons.org/licenses/by-sa/2.5/
-# It was changed to globalenv in this package.
+# It was changed to use globalenv in this package.
 #
 # tic <- function(gcFirst = TRUE, type=c("elapsed", "user.self", "sys.self"))
 # {
@@ -40,9 +40,9 @@
 #
 # toc <- function()
 # {
-#    type <- get(".type", envir=globalenv())
+#    type <- get(".type", envir=baseenv())
 #    toc <- proc.time()[type]
-#    tic <- get(".tic", envir=globalenv())
+#    tic <- get(".tic", envir=baseenv())
 #    print(toc - tic)
 #    invisible(toc)
 # }
@@ -239,8 +239,9 @@ toc <- function(log = FALSE, quiet = FALSE, func.toc = toc.outmsg, ...)
 #' @rdname tic
 toc.outmsg <- function(tic, toc, msg)
 {
-   if (is.null(msg) || is.na(msg) || length(msg) == 0) outmsg <- paste(round(toc - tic, 3), " sec elapsed", sep="")
-   else outmsg <- paste(msg, ": ", round(toc - tic, 3), " sec elapsed", sep="")
+   if (is.null(msg) || is.na(msg) || length(msg) == 0) outmsg <- paste0(round(toc - tic, 3), " sec elapsed")
+   else outmsg <- paste0(msg, ": ", round(toc - tic, 3), " sec elapsed")
+   outmsg
 }
 
 #-------------------------------------------------------------------------------

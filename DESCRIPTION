@@ -1,7 +1,7 @@
 Package: tictoc
 Title: Functions for Timing R Scripts, as Well as Implementations of "Stack"
     and "List" Structures
-Version: 1.0.2
+Version: 1.1
 Author: Sergei Izrailev
 Maintainer: Sergei Izrailev <sizrailev@jabiruventures.com>
 Description: Code execution timing functions 'tic' and 'toc' that
