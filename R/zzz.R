@@ -21,13 +21,16 @@
 # limitations under the License.
 #-------------------------------------------------------------------------------
 
+# Store timing data in our own environment.
+tictoc_pkg_env <- new.env(parent = emptyenv())
+
+#-------------------------------------------------------------------------------
+
 .onLoad <- function(libname, pkgname)
 {
-   pos <- 1
-   envir <- as.environment(pos)
-   assign(".ticmsg", Stack(), envir = envir)
-   assign(".tictoc", Stack(), envir = envir)
-   assign(".ticlog", List(), envir = envir)
+   tictoc_pkg_env$.ticmsg <- Stack()
+   tictoc_pkg_env$.tictoc <- Stack()
+   tictoc_pkg_env$.ticlog <- List()
 }
 
 #-------------------------------------------------------------------------------
