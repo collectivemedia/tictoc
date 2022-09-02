@@ -1,0 +1,89 @@
+test_that("Sequential measurement works", {
+    ## Timing in a loop and analyzing the results later using tic.log().
+    tic.clearlog()
+    for (x in 1:10)
+    {
+       tic(x)
+       Sys.sleep(1)
+       toc(log = TRUE, quiet = TRUE)
+    }
+    log.txt <- tic.log(format = TRUE)
+    log.lst <- tic.log(format = FALSE)
+    tic.clearlog()
+
+    timings <- unlist(lapply(log.lst, function(x) x$toc - x$tic))
+    print(paste("Average elapsed time:", mean(timings), "sec"))
+    # [1] 1.001
+    writeLines(unlist(log.txt))
+    # 1: 1.002 sec elapsed
+    # 2: 1 sec elapsed
+    # 3: 1.002 sec elapsed
+    # 4: 1.001 sec elapsed
+    # 5: 1.001 sec elapsed
+    # 6: 1.001 sec elapsed
+    # 7: 1.001 sec elapsed
+    # 8: 1.001 sec elapsed
+    # 9: 1.001 sec elapsed
+    # 10: 1 sec elapsed
+    expect_equal(length(timings), 10)
+})
+
+test_that("Nested measurement works with callbacks", {
+    ## Using custom callbacks in tic/toc
+    my.msg.tic <- function(tic, msg)
+    {
+       if (is.null(msg) || is.na(msg) || length(msg) == 0)
+       {
+          outmsg <- paste0(round(toc - tic, 3), " seconds elapsed")
+       }
+       else
+       {
+          outmsg <- paste0("Starting ", msg, "...")
+       }
+      outmsg
+    }
+
+    my.msg.toc <- function(tic, toc, msg, info)
+    {
+       if (is.null(msg) || is.na(msg) || length(msg) == 0)
+       {
+          outmsg <- paste0(round(toc - tic, 3), " seconds elapsed")
+       }
+       else
+       {
+          outmsg <- paste0(info, ": ", msg, ": ",
+                       round(toc - tic, 3), " seconds elapsed")
+       }
+      outmsg
+    }
+
+    tic("outer", quiet = FALSE, func.tic = my.msg.tic)
+    # Starting outer...
+       Sys.sleep(1)
+       tic("middle", quiet = FALSE, func.tic = my.msg.tic)
+    # Starting middle...
+          Sys.sleep(2)
+          tic("inner", quiet = FALSE, func.tic = my.msg.tic)
+             Sys.sleep(3)
+    # Starting inner...
+          toc(log = TRUE, quiet = FALSE, func.toc = my.msg.toc, info = "INFO")
+    # INFO: inner: 3.005 seconds elapsed
+       toc(log = TRUE, quiet = FALSE, func.toc = my.msg.toc, info = "INFO")
+    # INFO: middle: 5.01 seconds elapsed
+    toc(log = TRUE, quiet = FALSE, func.toc = my.msg.toc, info = "INFO")
+    # INFO: outer: 6.014 seconds elapsed
+
+    log.lst <- tic.log(format = FALSE)
+    expect_equal(length(log.lst), 3)
+
+    labels <- unlist(lapply(log.lst, function(x) x$msg))
+    expect_equal(labels[1], "inner")
+    expect_equal(labels[2], "middle")
+    expect_equal(labels[3], "outer")
+
+    timings <- unlist(lapply(log.lst, function(x) x$toc - x$tic))
+    expect_true(timings[1] < timings[2])
+    expect_true(timings[2] < timings[3])
+
+    expect_match(log.lst[[1]]$callback_msg, "INFO: inner: .* seconds elapsed")
+})
