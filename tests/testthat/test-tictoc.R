@@ -211,30 +211,3 @@ test_that("tic.log works in a loop",
 })
 
 #-------------------------------------------------------------------------------
-
-my.msg.out <- function(tic, toc, msg, info)
-{
-    if (is.null(msg) || is.na(msg) || length(msg) == 0) outmsg <- paste(round(toc - tic, 3), " seconds elapsed", sep="")
-    else outmsg <- paste0(info, ": ", msg, ": ", round(toc - tic, 3), " seconds elapsed")
-    outmsg
-}
-
-test_that("func.toc custom message formatting works",
-{
-    quiet <- TRUE
-    tic.clearlog()
-    tic("outer")
-        Sys.sleep(1)
-        tic("middle")
-            Sys.sleep(2)
-            tic("inner")
-                Sys.sleep(3)
-            tm3 <- toc(log = TRUE, quiet = quiet, func.toc = my.msg.out, info = "INFO")
-        tm2 <- toc(log = TRUE, quiet = quiet, func.toc = my.msg.out, info = "INFO")
-    tm1 <- toc(log = TRUE, quiet = quiet, func.toc = my.msg.out, info = "INFO")
-
-    log.txt <- tic.log(format = TRUE)
-    tic.clearlog()
-})
-
-#-------------------------------------------------------------------------------
