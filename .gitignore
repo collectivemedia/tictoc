@@ -11,3 +11,6 @@
 # PyCharm
 .idea
 
+# Reverse dependencies check
+revdep
+.mustashe
