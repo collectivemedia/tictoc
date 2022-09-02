@@ -7,6 +7,11 @@
 \alias{tic.clear}
 \alias{tic.log}
 \alias{toc}
+\alias{toc}
+\alias{toc.outmsg}
+\alias{tic.clearlog}
+\alias{tic.clear}
+\alias{tic.log}
 \title{Timing utilities.}
 \usage{
 tic(msg = NULL, quiet = TRUE, func.tic = NULL, ...)

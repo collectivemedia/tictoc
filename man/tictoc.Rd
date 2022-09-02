@@ -3,6 +3,7 @@
 \docType{package}
 \name{tictoc}
 \alias{tictoc}
+\alias{tictoc-package}
 \title{Package tictoc.}
 \description{
 Functions for timing, as well as implementations of Stack and List structures.
