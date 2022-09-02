@@ -35,7 +35,7 @@
 #' @param value Value to append.
 #' @param s A structure to be converted to a Stack or List.
 #' @name Stack and List
-#' @aliases Stack List push.default pop.default clear.default shift.default first.default last.default size.default as.Stack.default as.List.default
+#' @aliases Stack List push.default pop.default clear.default shift.default first_element.default last_element.default size.default as.Stack.default as.List.default
 #' @rdname Stack
 #' @export
 push <- function(x, value) UseMethod("push")    # append an element
@@ -67,18 +67,20 @@ shift  <- function(x) UseMethod("shift")        # pop the first element
 #-------------------------------------------------------------------------------
 
 #' @description
-#' \code{first} - Return the first element.
+#' \code{first_element} - Return the first element. We can't use \code{first} because
+#' it's taken by the \code{dplyr} package and is not an S3 method.
 #' @rdname Stack
 #' @export
-first  <- function(x) UseMethod("first")        # return the first element
+first_element  <- function(x) UseMethod("first_element")        # return the first element
 
 #-------------------------------------------------------------------------------
 
 #' @description
-#' \code{last} - Return the last element.
+#' \code{last_element} - Return the last element. We can't use \code{last} because
+#' it's taken by the \code{dplyr} package and is not an S3 method.
 #' @rdname Stack
 #' @export
-last  <- function(x) UseMethod("last")        # return the last element
+last_element  <- function(x) UseMethod("last_element")        # return the last element
 
 #-------------------------------------------------------------------------------
 
@@ -120,7 +122,7 @@ as.List.default <- function(s)
 
 #-------------------------------------------------------------------------------
 
-#' @aliases push pop clear shift first last size
+#' @aliases push pop clear shift first_element last_element size
 #' @export
 push.default  <- function(x, value) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))
 
@@ -134,10 +136,10 @@ clear.default  <- function(x) stop(gettextf("Unknown class for '%s'.", deparse(s
 shift.default  <- function(x) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))
 
 #' @export
-first.default  <- function(x) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))
+first_element.default  <- function(x) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))
 
 #' @export
-last.default  <- function(x) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))
+last_element.default  <- function(x) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))
 
 #' @export
 size.default  <- function(x) stop(gettextf("Unknown class for '%s'.", deparse(substitute(x))))
@@ -155,10 +157,10 @@ clear.Stack  <- function(x) x$clear()
 shift.Stack  <- function(x) x$shift()
 
 #' @export
-first.Stack  <- function(x) x$first()
+first_element.Stack  <- function(x) x$first()
 
 #' @export
-last.Stack  <- function(x) x$last()
+last_element.Stack  <- function(x) x$last()
 
 #' @export
 size.Stack  <- function(x) x$size()
@@ -210,9 +212,21 @@ Stack <- function()
       return(tmp)
    }
 
-   stack$first <- function() .Data[1]
+   stack$first <- function()
+   {
+      if (length(.Data) == 0) {
+         return(NA)
+      }
+      .Data[1]
+   }
 
-   stack$last <- function() .Data[length(.Data)]
+   stack$last <- function()
+   {
+      if (length(.Data) == 0) {
+         return(NA)
+      }
+      .Data[length(.Data)]
+   }
 
    stack$size <- function() length(.Data)
 
@@ -244,10 +258,10 @@ clear.List  <- function(x) x$clear()
 shift.List  <- function(x) x$shift()
 
 #' @export
-first.List  <- function(x) x$first()
+first_element.List  <- function(x) x$first()
 
 #' @export
-last.List  <- function(x) x$last()
+last_element.List  <- function(x) x$last()
 
 #' @export
 size.List  <- function(x) x$size()
@@ -285,10 +299,21 @@ List <- function()
       return(tmp)
    }
 
-   lst$first <- function() .Data[[1]]
+   lst$first <- function()
+   {
+      if (length(.Data) == 0) {
+         return(NA)
+      }
+      .Data[[1]]
+   }
 
-
-   lst$last <- function() .Data[[length(.Data)]]
+   lst$last <- function()
+   {
+      if (length(.Data) == 0) {
+         return(NA)
+      }
+      .Data[[length(.Data)]]
+   }
 
    lst$size <- function() length(.Data)
 

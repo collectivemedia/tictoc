@@ -21,12 +21,14 @@
 #-------------------------------------------------------------------------------
 test_that("Stack (vector) works", {
   stk <- Stack()
+  expect_true(is.na(first_element(stk)))
+  expect_true(is.na(last_element(stk)))
   push(stk, 1)
   push(stk, 2)
   push(stk, 3)
   expect_equal(length(stk$.Data), 3)
-  expect_equal(first(stk), 1)
-  expect_equal(last(stk), 3)
+  expect_equal(first_element(stk), 1)
+  expect_equal(last_element(stk), 3)
 
   value <- pop(stk)
   # last in first out
@@ -37,18 +39,20 @@ test_that("Stack (vector) works", {
   value <- shift(stk)
   expect_equal(value, 1)
   expect_equal(length(stk$.Data), 1)
-  expect_equal(first(stk), 2)
-  expect_equal(last(stk), 2)
+  expect_equal(first_element(stk), 2)
+  expect_equal(last_element(stk), 2)
 })
 
 test_that("List works", {
   lst <- List()
+  expect_true(is.na(first_element(lst)))
+  expect_true(is.na(last_element(lst)))
   push(lst, "first")
   push(lst, 2)
   push(lst, 3)
   expect_equal(length(lst$.Data), 3)
-  expect_equal(first(lst), "first")
-  expect_equal(last(lst), 3)
+  expect_equal(first_element(lst), "first")
+  expect_equal(last_element(lst), 3)
 
   value <- pop(lst)
   # last in first out
@@ -59,6 +63,6 @@ test_that("List works", {
   value <- shift(lst)
   expect_equal(value, "first")
   expect_equal(length(lst$.Data), 1)
-  expect_equal(first(lst), 2)
-  expect_equal(last(lst), 2)
+  expect_equal(first_element(lst), 2)
+  expect_equal(last_element(lst), 2)
 })

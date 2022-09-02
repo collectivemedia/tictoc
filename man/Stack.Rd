@@ -9,16 +9,16 @@
 \alias{pop.default}
 \alias{clear.default}
 \alias{shift.default}
-\alias{first.default}
-\alias{last.default}
+\alias{first_element.default}
+\alias{last_element.default}
 \alias{size.default}
 \alias{as.Stack.default}
 \alias{as.List.default}
 \alias{pop}
 \alias{clear}
 \alias{shift}
-\alias{first}
-\alias{last}
+\alias{first_element}
+\alias{last_element}
 \alias{size}
 \alias{as.Stack}
 \alias{as.List}
@@ -32,9 +32,9 @@ clear(x)
 
 shift(x)
 
-first(x)
+first_element(x)
 
-last(x)
+last_element(x)
 
 size(x)
 
@@ -62,9 +62,11 @@ List()
 
 \code{shift} - Remove and return the first element.
 
-\code{first} - Return the first element.
+\code{first_element} - Return the first element. We can't use \code{first} because
+it's taken by the \code{dplyr} package and is not an S3 method.
 
-\code{last} - Return the last element.
+\code{last_element} - Return the last element. We can't use \code{last} because
+it's taken by the \code{dplyr} package and is not an S3 method.
 
 \code{size} - Return the number of  elements.
 

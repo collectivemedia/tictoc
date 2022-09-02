@@ -48,8 +48,8 @@
 #' }
 #' In addition, this package provides classes \code{\link{Stack}} (implemented
 #' as a \code{vector}) and \code{\link{List}} (implemented as a \code{list}),
-#' both of which support operations \code{push}, \code{pop}, \code{first},
-#' \code{last}, \code{clear} and \code{size}.
+#' both of which support operations \code{push}, \code{pop}, \code{first_element},
+#' \code{last_element}, \code{clear} and \code{size}.
 #'
 #' @name tictoc
 #' @aliases tictoc
