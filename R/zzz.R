@@ -7,6 +7,7 @@
 # Sergei Izrailev, 2011-2012, 2022
 #-------------------------------------------------------------------------------
 # Copyright 2011-2014 Collective, Inc.
+# Portions are Copyright (C) 2017-2022 Jabiru Ventures LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
