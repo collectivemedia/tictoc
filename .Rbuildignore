@@ -7,3 +7,4 @@
 ^revdep$
 ^\.Rhistory$
 ^\.mustashe$
+^cran-comments\.md$
