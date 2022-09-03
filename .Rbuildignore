@@ -1,3 +1,10 @@
 ^\.travis\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.idea$
+^\.settings$
+^\.git$
+^revdep$
+^\.Rhistory$
+^\.mustashe$
+^cran-comments\.md$

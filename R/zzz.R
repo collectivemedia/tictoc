@@ -4,9 +4,10 @@
 #
 # Initialization.
 #
-# Sergei Izrailev, 2011-2012
+# Sergei Izrailev, 2011-2012, 2022
 #-------------------------------------------------------------------------------
 # Copyright 2011-2014 Collective, Inc.
+# Portions are Copyright (C) 2017-2022 Jabiru Ventures LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,11 +22,16 @@
 # limitations under the License.
 #-------------------------------------------------------------------------------
 
+# Store timing data in our own environment.
+tictoc_pkg_env <- new.env(parent = emptyenv())
+
+#-------------------------------------------------------------------------------
+
 .onLoad <- function(libname, pkgname)
 {
-   assign(".ticmsg", Stack(), envir=baseenv())
-   assign(".tictoc", Stack(), envir=baseenv())
-   assign(".ticlog", List() , envir=baseenv())
+   tictoc_pkg_env$.ticmsg <- Stack()
+   tictoc_pkg_env$.tictoc <- Stack()
+   tictoc_pkg_env$.ticlog <- List()
 }
 
 #-------------------------------------------------------------------------------

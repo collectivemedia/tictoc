@@ -7,6 +7,7 @@
 # Sergei Izrailev, 2011-2014
 #-------------------------------------------------------------------------------
 # Copyright 2011-2014 Collective, Inc.
+# Portions are Copyright (C) 2017-2022 Jabiru Ventures LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -48,8 +49,8 @@
 #' }
 #' In addition, this package provides classes \code{\link{Stack}} (implemented
 #' as a \code{vector}) and \code{\link{List}} (implemented as a \code{list}),
-#' both of which support operations \code{push}, \code{pop}, \code{first},
-#' \code{last}, \code{clear} and \code{size}.
+#' both of which support operations \code{push}, \code{pop}, \code{first_element},
+#' \code{last_element}, \code{clear} and \code{size}.
 #'
 #' @name tictoc
 #' @aliases tictoc

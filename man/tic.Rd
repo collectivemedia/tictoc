@@ -7,11 +7,6 @@
 \alias{tic.clear}
 \alias{tic.log}
 \alias{toc}
-\alias{toc}
-\alias{toc.outmsg}
-\alias{tic.clearlog}
-\alias{tic.clear}
-\alias{tic.log}
 \title{Timing utilities.}
 \usage{
 tic(msg = NULL, quiet = TRUE, func.tic = NULL, ...)
@@ -151,25 +146,27 @@ my.msg.tic <- function(tic, msg)
 {
    if (is.null(msg) || is.na(msg) || length(msg) == 0)
    {
-      outmsg <- paste(round(toc - tic, 3), " seconds elapsed", sep="")
+      outmsg <- paste0(round(toc - tic, 3), " seconds elapsed")
    }
    else
    {
-      outmsg <- paste("Starting ", msg, "...", sep="")
+      outmsg <- paste0("Starting ", msg, "...")
    }
+   outmsg
 }
 
 my.msg.toc <- function(tic, toc, msg, info)
 {
    if (is.null(msg) || is.na(msg) || length(msg) == 0)
    {
-      outmsg <- paste(round(toc - tic, 3), " seconds elapsed", sep="")
+      outmsg <- paste0(round(toc - tic, 3), " seconds elapsed")
    }
    else
    {
-      outmsg <- paste(info, ": ", msg, ": ",
-                   round(toc - tic, 3), " seconds elapsed", sep="")
+      outmsg <- paste0(info, ": ", msg, ": ",
+                   round(toc - tic, 3), " seconds elapsed")
    }
+   outmsg
 }
 
 tic("outer", quiet = FALSE, func.tic = my.msg.tic)

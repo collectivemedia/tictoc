@@ -7,3 +7,10 @@
 # R data files from past sessions
 .Rdata
 .Rproj.user
+
+# PyCharm
+.idea
+
+# Reverse dependencies check
+revdep
+.mustashe

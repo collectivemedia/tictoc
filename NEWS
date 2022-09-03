@@ -1,3 +1,10 @@
+Version 1.1
+- Exporting Stack and List.
+- Using a local package environment instead of baseenv() to store timing data.
+- Exporting the callback return message in tic.log.
+- Added tests.
+- Updated documentation formatting.
+- Updated maintainer contact and package location - this didn't work in the v1.0.1 submission.
 Version 1.0.1
 - Updated maintainer contact and package location.
 Version 1.0

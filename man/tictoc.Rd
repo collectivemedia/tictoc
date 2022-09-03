@@ -3,7 +3,6 @@
 \docType{package}
 \name{tictoc}
 \alias{tictoc}
-\alias{tictoc-package}
 \title{Package tictoc.}
 \description{
 Functions for timing, as well as implementations of Stack and List structures.
@@ -35,8 +34,8 @@ The features include the following:
 }
 In addition, this package provides classes \code{\link{Stack}} (implemented
 as a \code{vector}) and \code{\link{List}} (implemented as a \code{list}),
-both of which support operations \code{push}, \code{pop}, \code{first},
-\code{last}, \code{clear} and \code{size}.
+both of which support operations \code{push}, \code{pop}, \code{first_element},
+\code{last_element}, \code{clear} and \code{size}.
 }
 \section{Copyright}{
  Copyright (C) Collective, Inc.; with portions Copyright (C) Jabiru Ventures LLC
