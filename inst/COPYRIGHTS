@@ -6,7 +6,7 @@ Portions are Copyright (C) 2017-2022 Jabiru Ventures LLC
 # http://stackoverflow.com/questions/1716012/stopwatch-function-in-r
 # by http://stackoverflow.com/users/134830/richie-cotton
 # stackoverflow license: http://creativecommons.org/licenses/by-sa/2.5/
-# It was changed to globalenv in this package.
+# It was changed to use a local environment in this package.
 #
 # tic <- function(gcFirst = TRUE, type=c("elapsed", "user.self", "sys.self"))
 # {
