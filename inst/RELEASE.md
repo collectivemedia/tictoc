@@ -11,7 +11,7 @@ devtools::check_win_devel()
 
 install.packages("rhub")
 library(rhub)
-check_rhub(platforms = c("ubuntu-gcc-release", "macos-m1-bigsur-release", "macos-highsierra-release"))
+check_rhub(platforms = c("ubuntu-gcc-release", "macos-highsierra-release-cran", "macos-highsierra-release"))
 
 install.packages("spelling")
 library(spelling)

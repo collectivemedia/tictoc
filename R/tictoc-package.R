@@ -4,10 +4,10 @@
 #
 # General description
 #
-# Sergei Izrailev, 2011-2014
+# Sergei Izrailev, 2011-2012, 2017-2023
 #-------------------------------------------------------------------------------
 # Copyright 2011-2014 Collective, Inc.
-# Portions are Copyright (C) 2017-2022 Jabiru Ventures LLC
+# Portions are Copyright (C) 2017-2023 Jabiru Ventures LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #-------------------------------------------------------------------------------
-#' Functions for timing, as well as implementations of Stack and List structures.
+#' Functions for timing, as well as implementations of Stack and StackList structures.
 #'
 #' The \code{tictoc} package provides the timing functions \code{tic} and
 #' \code{toc} that can be nested. It provides an alternative to
@@ -48,7 +48,7 @@
 #'   the default behavior and/or add other functionality (such as logging to a database)}
 #' }
 #' In addition, this package provides classes \code{\link{Stack}} (implemented
-#' as a \code{vector}) and \code{\link{List}} (implemented as a \code{list}),
+#' as a \code{vector}) and \code{\link{StackList}} (a stack implemented as a \code{list}),
 #' both of which support operations \code{push}, \code{pop}, \code{first_element},
 #' \code{last_element}, \code{clear} and \code{size}.
 #'

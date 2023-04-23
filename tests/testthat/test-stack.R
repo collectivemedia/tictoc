@@ -4,10 +4,10 @@
 #
 # Tests for the Stack and Test classes
 #
-# Sergei Izrailev, 2014, 2022
+# Sergei Izrailev, 2011-2012, 2017-2023
 #-------------------------------------------------------------------------------
 # Copyright 2011-2014 Collective, Inc.
-# Portions are Copyright (C) 2017-2022 Jabiru Ventures LLC
+# Portions are Copyright (C) 2017-2023 Jabiru Ventures LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -153,16 +153,16 @@ test_that("as.vector works",
 
 #-------------------------------------------------------------------------------
 
-test_that("List constructor works",
+test_that("StackList constructor works",
 {
-    lst <- List()
-    expect_equal(class(lst), "List")
+    lst <- StackList()
+    expect_equal(class(lst), "StackList")
 })
 
 #-------------------------------------------------------------------------------
 
-test_that("List works", {
-    lst <- List()
+test_that("StackList works", {
+    lst <- StackList()
     expect_true(is.na(first_element(lst)))
     expect_true(is.na(last_element(lst)))
     push(lst, "first")
@@ -187,9 +187,9 @@ test_that("List works", {
 
 #-------------------------------------------------------------------------------
 
-test_that("List push works",
+test_that("StackList push works",
 {
-    lst <- List()
+    lst <- StackList()
     push(lst, 1)
     push(lst, 8)
     push(lst, 10)
@@ -200,7 +200,7 @@ test_that("List push works",
     push(lst, "asdf")
     expect_equal(all.equal(lst$.Data, list(1, 8, 10, "asdf")), TRUE)
 
-    lst2 <- List()
+    lst2 <- StackList()
     push(lst2, "s")
     push(lst2, "d")
     push(lst2, "f")
@@ -217,9 +217,9 @@ test_that("List push works",
 
 #-------------------------------------------------------------------------------
 
-test_that("List size works",
+test_that("StackList size works",
 {
-    lst <- List()
+    lst <- StackList()
     push(lst, 1)
     push(lst, 8)
     push(lst, list(a = "b"))
@@ -228,9 +228,9 @@ test_that("List size works",
 
 #-------------------------------------------------------------------------------
 
-test_that("List pop works",
+test_that("StackList pop works",
 {
-    lst <- List()
+    lst <- StackList()
     push(lst, 1)
     push(lst, 8)
     push(lst, list(a = "b"))
@@ -242,9 +242,9 @@ test_that("List pop works",
 
 #-------------------------------------------------------------------------------
 
-test_that("List shift, first, last and clear work",
+test_that("StackList shift, first, last and clear work",
 {
-    lst <- List()
+    lst <- StackList()
     push(lst, 1)
     push(lst, 8)
     push(lst, list(a = "b"))
@@ -261,10 +261,10 @@ test_that("List shift, first, last and clear work",
 
 #-------------------------------------------------------------------------------
 
-test_that("as.List works",
+test_that("as.StackList works",
 {
     lst.orig <- list(a = 1, b = 2, c = "abcd", d = list(p = "xyz", q = c(5, 6, 7)))
-    lst <- as.List(lst.orig)
+    lst <- as.StackList(lst.orig)
     lst.new <- as.list(lst)
     expect_equal(all.equal(lst.orig, lst.new), TRUE)
 })

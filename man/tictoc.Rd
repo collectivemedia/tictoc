@@ -5,7 +5,7 @@
 \alias{tictoc}
 \title{Package tictoc.}
 \description{
-Functions for timing, as well as implementations of Stack and List structures.
+Functions for timing, as well as implementations of Stack and StackList structures.
 }
 \details{
 The \code{tictoc} package provides the timing functions \code{tic} and
@@ -33,7 +33,7 @@ The features include the following:
   the default behavior and/or add other functionality (such as logging to a database)}
 }
 In addition, this package provides classes \code{\link{Stack}} (implemented
-as a \code{vector}) and \code{\link{List}} (implemented as a \code{list}),
+as a \code{vector}) and \code{\link{StackList}} (a stack implemented as a \code{list}),
 both of which support operations \code{push}, \code{pop}, \code{first_element},
 \code{last_element}, \code{clear} and \code{size}.
 }

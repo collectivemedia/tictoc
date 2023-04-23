@@ -2,12 +2,12 @@
 #
 # Package tictoc
 #
-# Stack and List
+# Stack and StackList
 #
-# Sergei Izrailev, 2011, 2014, 2022
+# Sergei Izrailev, 2011, 2014, 2017-2023
 #-------------------------------------------------------------------------------
 # Copyright 2011-2014 Collective, Inc.
-# Portions are Copyright (C) 2017-2022 Jabiru Ventures LLC
+# Portions are Copyright (C) 2017-2023 Jabiru Ventures LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,14 +29,14 @@
 # STACK
 #-------------------------------------------------------------------------------
 
-#' Stack and List classes and methods
+#' Stack and StackList classes and methods
 #'
 #' \code{push} - Append an element.
-#' @param x A Stack or List object.
+#' @param x A Stack or StackList object.
 #' @param value Value to append.
-#' @param s A structure to be converted to a Stack or List.
-#' @name Stack and List
-#' @aliases Stack List push.default pop.default clear.default shift.default first_element.default last_element.default size.default as.Stack.default as.List.default
+#' @param s A structure to be converted to a Stack or StackList.
+#' @name Stack and StackList
+#' @aliases Stack StackList push.default pop.default clear.default shift.default first_element.default last_element.default size.default as.Stack.default as.StackList.default
 #' @rdname Stack
 #' @export
 push <- function(x, value) UseMethod("push")    # append an element
@@ -108,15 +108,15 @@ as.Stack.default <- function(s)
 }
 
 #' @description
-#' \code{as.List} - Creates a new List from (typically, list) \code{s}.
+#' \code{as.StackList} - Creates a new StackList from (typically, list) \code{s}.
 #' @rdname Stack
 #' @export
-as.List <- function(s) UseMethod("as.List")
+as.StackList <- function(s) UseMethod("as.StackList")
 
 #' @export
-as.List.default <- function(s)
+as.StackList.default <- function(s)
 {
-   lst <- List()
+   lst <- StackList()
    lst$.Data <- as.list(s)
    lst
 }
@@ -173,10 +173,10 @@ as.vector.Stack <- function(x, mode = "any") as.vector(x$.Data)
 print.Stack <- function(x, ...) print(x$.Data)
 
 #' @export
-as.list.List <- function(x, ...) as.list(x$.Data)
+as.list.StackList <- function(x, ...) as.list(x$.Data)
 
 #' @export
-print.List <- function(x, ...) print(x$.Data)
+print.StackList <- function(x, ...) print(x$.Data)
 
 #-------------------------------------------------------------------------------
 
@@ -247,32 +247,32 @@ Stack <- function()
 
 # LIST - keeps a list of items with append and clear operations
 #' @export
-push.List <- function(x, value, ...) x$push(value)
+push.StackList <- function(x, value, ...) x$push(value)
 
 #' @export
-pop.List  <- function(x) x$pop()
+pop.StackList  <- function(x) x$pop()
 
 #' @export
-clear.List  <- function(x) x$clear()
+clear.StackList  <- function(x) x$clear()
 
 #' @export
-shift.List  <- function(x) x$shift()
+shift.StackList  <- function(x) x$shift()
 
 #' @export
-first_element.List  <- function(x) x$first()
+first_element.StackList  <- function(x) x$first()
 
 #' @export
-last_element.List  <- function(x) x$last()
+last_element.StackList  <- function(x) x$last()
 
 #' @export
-size.List  <- function(x) x$size()
+size.StackList  <- function(x) x$size()
 
 #' @description
-#' \code{List()} - Creates and keeps a list of items of the same type, implemented as an R list.
+#' \code{StackList()} - Creates and keeps a list of items of the same type, implemented as an R list.
 #' The type is determined by the first \code{push} operation.
 #' @rdname Stack
 #' @export
-List <- function()
+StackList <- function()
 {
    lst <- new.env()
 
@@ -326,7 +326,7 @@ List <- function()
    environment(lst$last) <- as.environment(lst)
    environment(lst$size) <- as.environment(lst)
 
-   class(lst) <- "List"
+   class(lst) <- "StackList"
    lst
 }
 
